@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-desk: 786px;
+  --color-bgDark: #030408;
+  --shadow-formShadow: rgba(0,0,0,0.7) 0px 25px 30px -10px;
+}
+*{
+  font-family: 'Roboto';
+}
+.inputError{
+    border-color: red !important;
+}
+body{
+    min-height: 100vh;
+    background-image: url('/assets/img/home-background-QI8yTW3p.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+body.content-loaded::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%; 
+  height: 98px; 
+  background-color: #030408; 
+  z-index: -1;
+}
+
+.customLoader span {
+  margin: 0 10px !important; 
+}
+
+.mySwiper{
+  overflow: visible !important;
+  position: relative !important;
+}
+.mySwiper .swiper-pagination{
+  position: absolute !important;
+  bottom: 10px !important; 
+  left: 65% !important;
+  transition: all 0.4s ease !important;
+  width: auto !important;
+}
+.mySwiper .swiper-pagination-bullet{
+  background-color: black !important;
+  opacity: .4;
+  width: 7px !important;
+  height: 7px !important;
+  margin-left: 10px !important;
+}
+.mySwiper .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):hover{
+  opacity: 1 !important;
+}
+.mySwiper .swiper-pagination-bullet-active{
+  background-color: #fff !important; 
+  opacity: .7;
+}
+@media only screen and (max-width: 290px) {
+  .mySwiper .swiper-pagination-bullet{
+    width: 7px !important;
+    height: 7px !important;
+    margin-left: 6px !important;
+  }
+  .mySwiper .swiper-pagination{
+    bottom: 5px !important; 
+    left: 40% !important;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .mySwiper .swiper-pagination-bullet{
+    width: 9px !important;
+    height: 9px !important;
+    margin-left: 12px !important;
+  }
+  .mySwiper .swiper-pagination{
+    bottom: 10px !important; 
+    left: 75% !important;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .mySwiper .swiper-pagination{
+    left: 84% !important;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .mySwiper .swiper-pagination-bullet{
+    width: 13px !important;
+    height: 13px !important;
+    margin-left: 12px !important;
+  }
+}
+
+
+
