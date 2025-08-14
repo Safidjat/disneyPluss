@@ -45,7 +45,7 @@ function Header() {
               sx={{
                 '@media (max-width: 290px)': {
                   width: '80px',
-                  fontSize: '11px',
+                  fontSize: '10px',
                   textAlign:'center',
                   px:'5px'  
                 },

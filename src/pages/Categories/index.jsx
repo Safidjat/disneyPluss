@@ -8,9 +8,10 @@ import { getMainCategories } from "../../services";
 import { imgUrl } from "../../services/componentsData";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import Auth from "../Auth";
 
 function Categories() {
-    const{isLoading}=useAuth()
+    const{isLoading,isLoggedIn}=useAuth()
     const [categoryData,setCategoryData]=useState({});
     const [pageLoading,setPageLoading]=useState(true);
     const [pageError,setPageError]=useState(false);
@@ -29,6 +30,7 @@ function Categories() {
     
     return (
         isLoading?<LoadingVerify />:
+        !isLoggedIn?<Auth />:
         pageLoading? 
         <div className="w-full h-[calc(100vh-168px)] flex justify-center items-center">
             <PulseLoader color={"#fff"} size={10} className="customLoader"/>
@@ -39,7 +41,7 @@ function Categories() {
             <div className="flex flex-wrap w-full gap-[16px]">
                 {
                     categoryData?.data.map(item=>(
-                        <Link to={''} className="aspect-[2/3] overflow-hidden shadow-formShadow rounded-[10px] border-[3px] border-transparent hover:border-[#fbfbfb] ease-in-out transition-all duration-[0.3s] w-full min-[600px]:w-[calc((100%-32px)/3)] min-[900px]:w-[calc((100%-48px)/4)] min-[1200px]:w-[calc((100%-80px)/6)]">
+                        <Link to={isLoggedIn?('/detail/' + item.id):'/auth'} className="aspect-[2/3] overflow-hidden shadow-formShadow rounded-[10px] border-[3px] border-transparent hover:border-[#fbfbfb] ease-in-out transition-all duration-[0.3s] w-full min-[600px]:w-[calc((100%-32px)/3)] min-[900px]:w-[calc((100%-48px)/4)] min-[1200px]:w-[calc((100%-80px)/6)]">
                             <LazyLoadImage
                                 width="100%"
                                 height="100%"

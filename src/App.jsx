@@ -7,6 +7,7 @@ import AuthContext from "./context/AuthContext"
 import Categories from "./pages/Categories"
 import MainLayout from "./layout/MainLayout"
 import PageNotFoundError from "./pages/PageNotFoundError"
+import Detail from "./pages/Detail"
 
 function App() {
     const [showMain,setShowMain]=useState(false);
@@ -23,6 +24,7 @@ function App() {
                   <Route path='/' element={<Landing />} />
                   <Route path='/auth' element={<Auth />} />
                   <Route path='/category/:id' element={<Categories />} />
+                  <Route path='/detail/:id' element={<Detail />} />
                 </Route>
 
                 <Route path='*' element={<PageNotFoundError />} />
