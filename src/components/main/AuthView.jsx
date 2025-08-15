@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { loginSchema, registerSchema } from '../../schemas';
 import { Button } from '@mui/material';
 import { useAuth } from '../../context/AuthContext';
-import { useState } from 'react';
+import {  useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { getUseLogin, getUseRegister } from '../../services';
@@ -19,6 +19,7 @@ function AuthView({signInFirst,setView}) {
     const resetValues=()=>{
         setView(!signInFirst)
     }
+
     const onSubmit=async (values,actions)=>{
         // console.log(values);
         // console.log(actions);

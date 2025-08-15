@@ -18,8 +18,8 @@ function SuggestionSlider({data}) {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const{isLoggedIn}=useAuth()
-    const {handleScrollY,setScrollYinfo}=useScrollY();
-    
+    const {setScrollYinfo}=useScrollY();
+
   
     return (
             <div className='relative w-full pb-[60px] pt-[20px] overflow-hidden'>

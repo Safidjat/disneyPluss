@@ -9,13 +9,17 @@ import { FaChevronCircleRight } from "react-icons/fa";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { useRef, useState } from 'react';
 import { topSliderData } from '../../services/componentsData';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { useScrollY } from '../../context/ScrollRestoreContext';
 
 function TopSliderMovies() {
     const [currentImg,setCurrentImg]=useState(0);
     const isLessThan600=useMatchMedia('(max-width: 600px)');
     const prevRef = useRef(null);
     const nextRef = useRef(null);
-
+    const{isLoggedIn}=useAuth()
+    const {setScrollYinfo}=useScrollY();
   
     return (
         <div
@@ -62,7 +66,7 @@ function TopSliderMovies() {
                     {
                         topSliderData?.map((item,i)=>(
                             <SwiperSlide  key={item.id} style={{width:isLessThan600?'85%':'89%'}}>
-                                <div className='relative w-full shadow-formShadow rounded-[10px] aspect-[90/23] border-[3px] border-transparent hover:border-[#fbfbfb] hover:scale-[1.02] transition-all duration-[0.3s] cursor-pointer'>
+                                <Link to={isLoggedIn?('/detail/' + item.id):'/auth'} onClick={()=>setScrollYinfo(parseFloat(window.scrollY.toFixed(2)))} className='block relative w-full shadow-formShadow rounded-[10px] aspect-[90/23] border-[3px] border-transparent hover:border-[#fbfbfb] hover:scale-[1.02] transition-all duration-[0.3s] cursor-pointer'>
                                     <div className='size-full rounded-[10px] overflow-hidden'><img className='size-full object-cover' src={item.img} alt={item.alt}/></div>
                                         <div className='absolute inset-0 rounded-[10px] overflow-hidden'>
                                             <AnimatePresence initial={false}>
@@ -80,7 +84,7 @@ function TopSliderMovies() {
                                                 }
                                             </AnimatePresence>
                                         </div>
-                                </div>
+                                </Link>
                             </SwiperSlide>
                         ))
                     }

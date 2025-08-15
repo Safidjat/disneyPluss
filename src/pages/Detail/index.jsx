@@ -11,15 +11,16 @@ import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import { useAuth } from "../../context/AuthContext";
 import Auth from "../Auth";
 import { useScrollY } from "../../context/ScrollRestoreContext";
+import ModalTrailer from "../../modals/ModalTrailer";
 
 function Detail() {
     const [added,setAdded]=useState(false);
+    const [modalShow, setModalShow] = useState(false);
     const{isLoggedIn}=useAuth() 
     let navigate = useNavigate()
     const location = useLocation();
     const {id}=useParams();
-    const {setMayScroll,scrollYinfo}=useScrollY();
-    console.log(scrollYinfo)
+    const {setMayScroll}=useScrollY();
 
     function handleBack(){
         if(location.key!=='default'){
@@ -89,6 +90,7 @@ function Detail() {
                         Play
                     </Button>
                     <Button 
+                    onClick={()=>setModalShow(true)}
                     startIcon={<PlayArrowRoundedIcon fontSize="small" />}
                     sx={{
                         width:'clamp(60px, 22vw, 150px)',
@@ -159,6 +161,8 @@ function Detail() {
                     <ArrowBackIosNewRoundedIcon fontSize="small" />
                 </IconButton>
             </motion.div>
+
+            <ModalTrailer modalShow={modalShow} setModalShow={setModalShow} />
         </div>
     )
 }
