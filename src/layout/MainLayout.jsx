@@ -4,6 +4,7 @@ import Notification from "../components/Notification"
 import Header from "../components/header"
 
 function MainLayout() {
+
     return (
         <>
             <Header />

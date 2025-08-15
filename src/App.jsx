@@ -1,13 +1,8 @@
-import { Route, Routes } from "react-router-dom"
-import Landing from "./pages/Landing"
+import { Outlet,ScrollRestoration } from "react-router-dom"
 import { useState } from "react"
 import Intro from "./components/Intro"
-import Auth from "./pages/Auth"
 import AuthContext from "./context/AuthContext"
-import Categories from "./pages/Categories"
-import MainLayout from "./layout/MainLayout"
-import PageNotFoundError from "./pages/PageNotFoundError"
-import Detail from "./pages/Detail"
+import ScrollRestoreContext from "./context/ScrollRestoreContext";
 
 function App() {
     const [showMain,setShowMain]=useState(false);
@@ -19,7 +14,8 @@ function App() {
         {
           showMain && 
           <AuthContext>
-              <Routes>
+            <ScrollRestoreContext>
+              {/* <Routes>
                 <Route element={<MainLayout />}>
                   <Route path='/' element={<Landing />} />
                   <Route path='/auth' element={<Auth />} />
@@ -28,7 +24,9 @@ function App() {
                 </Route>
 
                 <Route path='*' element={<PageNotFoundError />} />
-              </Routes>
+              </Routes> */}
+              <Outlet />
+            </ScrollRestoreContext>
           </AuthContext>
         }
       </>

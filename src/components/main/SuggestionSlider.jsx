@@ -12,11 +12,14 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useScrollY } from '../../context/ScrollRestoreContext';
 
 function SuggestionSlider({data}) {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const{isLoggedIn}=useAuth()
+    const {handleScrollY,setScrollYinfo}=useScrollY();
+    
   
     return (
             <div className='relative w-full pb-[60px] pt-[20px] overflow-hidden'>
@@ -74,7 +77,7 @@ function SuggestionSlider({data}) {
                         data.length>0&&
                         data.map(item=>(
                             <SwiperSlide  key={item.id} className='max-[400px]:w-[85%] w-full'>
-                                <Link to={isLoggedIn?('/detail/' + item.id):'/auth'} className='block relative shadow-formShadow rounded-[10px] w-full aspect-[185/278] overflow-hidden border-[3px] border-transparent hover:border-[#fbfbfb] hover:scale-[1.04] ease-in-out transition-all duration-[0.3s] cursor-pointer'>
+                                <Link to={isLoggedIn?('/detail/' + item.id):'/auth'} onClick={()=>setScrollYinfo(parseFloat(window.scrollY.toFixed(2)))} className='block relative shadow-formShadow rounded-[10px] w-full aspect-[185/278] overflow-hidden border-[3px] border-transparent hover:border-[#fbfbfb] hover:scale-[1.04] ease-in-out transition-all duration-[0.3s] cursor-pointer'>
                                     <div className='absolute inset-0 size-full'>
                                         <LazyLoadImage
                                             width="100%"

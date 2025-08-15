@@ -16,7 +16,8 @@ function AuthContext({children}) {
     const location = useLocation();
     const isErrorPage =!matchPath({ path: '/', end: true }, location.pathname) 
     && !matchPath('/auth', location.pathname) 
-    && !matchPath('/category/:id', location.pathname);
+    && !matchPath('/category/:id', location.pathname)
+    && !matchPath('/detail/:id', location.pathname);
 
     const showNotification =(message, severity='info')=>{
         setNotification({

@@ -4,26 +4,34 @@ import { motion } from 'framer-motion';
 import { Button, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import { useAuth } from "../../context/AuthContext";
 import Auth from "../Auth";
+import { useScrollY } from "../../context/ScrollRestoreContext";
 
 function Detail() {
     const [added,setAdded]=useState(false);
     const{isLoggedIn}=useAuth() 
     let navigate = useNavigate()
     const location = useLocation();
+    const {id}=useParams();
+    const {setMayScroll,scrollYinfo}=useScrollY();
+    console.log(scrollYinfo)
 
     function handleBack(){
-        if(location.key!=='default') navigate(-1);
+        if(location.key!=='default'){
+            navigate(-1);
+            setMayScroll(true);
+        }
         else navigate('/')
     }
     function handleAddToWishlist(){
         setAdded(prev=>!prev)
     }
+
 
     return (
         !isLoggedIn?<Auth />:

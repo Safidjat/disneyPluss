@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import LoadingVerify from "../../components/LoadingVerify";
 import { PulseLoader } from "react-spinners";
 import PageLoadError from "../../components/main/PageLoadError";
@@ -9,6 +9,7 @@ import { imgUrl } from "../../services/componentsData";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Auth from "../Auth";
+import { useScrollY } from "../../context/ScrollRestoreContext";
 
 function Categories() {
     const{isLoading,isLoggedIn}=useAuth()
@@ -16,7 +17,8 @@ function Categories() {
     const [pageLoading,setPageLoading]=useState(true);
     const [pageError,setPageError]=useState(false);
     const {id}=useParams();
-
+    const {handleScrollY,setScrollYinfo}=useScrollY();
+    
     useEffect(()=>{
         getMainCategories(id)
         .then(res=>{
@@ -26,8 +28,20 @@ function Categories() {
             }else setPageError(true);
             setPageLoading(false);
         })
-    },[])
-    
+    },[id])
+
+    // useEffect(()=>{
+    //     setTimeout(() => {
+    //         handleScrollY();
+    //     }, 1000); 
+    // },[categoryData])
+
+    useLayoutEffect(()=>{
+        if (categoryData?.data?.length) {
+            handleScrollY();
+        }
+    }, [categoryData]);
+
     return (
         isLoading?<LoadingVerify />:
         !isLoggedIn?<Auth />:
@@ -41,7 +55,7 @@ function Categories() {
             <div className="flex flex-wrap w-full gap-[16px]">
                 {
                     categoryData?.data.map(item=>(
-                        <Link to={isLoggedIn?('/detail/' + item.id):'/auth'} className="aspect-[2/3] overflow-hidden shadow-formShadow rounded-[10px] border-[3px] border-transparent hover:border-[#fbfbfb] ease-in-out transition-all duration-[0.3s] w-full min-[600px]:w-[calc((100%-32px)/3)] min-[900px]:w-[calc((100%-48px)/4)] min-[1200px]:w-[calc((100%-80px)/6)]">
+                        <Link key={item.id} to={'/detail/' + item.id} onClick={()=>setScrollYinfo(parseFloat(window.scrollY.toFixed(2)))} className="aspect-[2/3] overflow-hidden shadow-formShadow rounded-[10px] border-[3px] border-transparent hover:border-[#fbfbfb] ease-in-out transition-all duration-[0.3s] w-full min-[600px]:w-[calc((100%-32px)/3)] min-[900px]:w-[calc((100%-48px)/4)] min-[1200px]:w-[calc((100%-80px)/6)]">
                             <LazyLoadImage
                                 width="100%"
                                 height="100%"

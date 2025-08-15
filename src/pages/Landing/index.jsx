@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { getMainSliders } from "../../services";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -6,12 +6,14 @@ import LoadingVerify from "../../components/LoadingVerify";
 import { PulseLoader } from "react-spinners";
 import PageLoadError from "../../components/main/PageLoadError";
 import LandingView from "../../components/main/LandingView";
+import { useScrollY } from "../../context/ScrollRestoreContext";
 
 function Landing() {
   const [sliders,setSliders]=useState([]);
   const [pageLoading,setPageLoading]=useState(true);
   const [pageError,setPageError]=useState(false);
   const{isLoading}=useAuth() 
+  const {handleScrollY}=useScrollY();
 
   useEffect(()=>{
     getMainSliders()
@@ -23,6 +25,12 @@ function Landing() {
       setPageLoading(false);
     })
   },[])
+
+  useLayoutEffect(()=>{
+      if (sliders?.length) {
+          handleScrollY();
+      }
+  }, [sliders]);
 
   return (
     isLoading?<LoadingVerify />:
