@@ -1,6 +1,12 @@
 import { Backdrop, Fade, Modal } from "@mui/material"
+import { youTubeUrl } from "../services/componentsData"
 
-function ModalTrailer({modalShow,setModalShow}) {
+function ModalTrailer({modalShow,setModalShow,trailers}) {
+    function theLatestTrailer(){
+        if (!trailers?.length) return null;
+        const now = new Date();
+        return [...trailers].sort((a,b)=>Math.abs(new Date(a.published_at)-now)-Math.abs(new Date(b.published_at)-now))[0]
+    }
     return (
         <Modal
         aria-labelledby="transition-modal-title"
@@ -22,7 +28,7 @@ function ModalTrailer({modalShow,setModalShow}) {
           <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[70%] aspect-[16/9] h-[365.600px]">
             <iframe 
             className="size-full" 
-            src={'https://www.youtube.com/embed/LvCedoSC4oA'}
+            src={youTubeUrl+theLatestTrailer()?.key}
             title="YouTube video player" >
             </iframe>
           </div>
@@ -30,5 +36,4 @@ function ModalTrailer({modalShow,setModalShow}) {
       </Modal>
     )
 }
-// replace('watch?v=', 'embed/')
 export default ModalTrailer

@@ -28,7 +28,8 @@ export const collections = [
     { id:'6', src: "/assets/img/starCollection.jpg", alt: "Star Collection", video:'/assets/mp4/star6.mp4' },
 ];
 
-export const imgUrl='https://image.tmdb.org/t/p/original'
+export const imgUrl='https://image.tmdb.org/t/p/original';
+export const youTubeUrl='https://www.youtube.com/embed/';
 
 export const mainVariants = {
   hidden: {

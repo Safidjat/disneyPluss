@@ -1,5 +1,6 @@
 import { LazyLoadImage } from "react-lazy-load-image-component"
-import { itemVariants } from "../../services/componentsData"
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import { imgUrl, itemVariants } from "../../services/componentsData"
 import { motion } from 'framer-motion';
 import { Button, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -12,15 +13,33 @@ import { useAuth } from "../../context/AuthContext";
 import Auth from "../Auth";
 import { useScrollY } from "../../context/ScrollRestoreContext";
 import ModalTrailer from "../../modals/ModalTrailer";
+import PageLoadError from "../../components/main/PageLoadError";
+import { PulseLoader } from "react-spinners";
+import LoadingVerify from "../../components/LoadingVerify";
+import { getDetailsById } from "../../services";
 
 function Detail() {
     const [added,setAdded]=useState(false);
     const [modalShow, setModalShow] = useState(false);
-    const{isLoggedIn}=useAuth() 
+    const{isLoggedIn,isLoading}=useAuth() 
+    const [detail,setDetail]=useState({});
+    const [pageLoading,setPageLoading]=useState(true);
+    const [pageError,setPageError]=useState(false);
     let navigate = useNavigate()
     const location = useLocation();
     const {id}=useParams();
     const {setMayScroll}=useScrollY();
+
+    useEffect(()=>{
+        getDetailsById(id)
+        .then((res)=>{
+            if(Object.keys(res).length){
+                setDetail(res);
+                setPageError(false);
+            }else setPageError(true);
+            setPageLoading(false);
+        })
+    },[id])
 
     function handleBack(){
         if(location.key!=='default'){
@@ -36,23 +55,29 @@ function Detail() {
 
     return (
         !isLoggedIn?<Auth />:
+        isLoading?<LoadingVerify />:
+        pageLoading? 
+        <div className="w-full h-[calc(100vh-168px)] flex justify-center items-center">
+            <PulseLoader color={"#fff"} size={10} className="customLoader"/>
+        </div>:
+        pageError?<PageLoadError />:
         <div className="relative h-[665.600px] grid place-items-center w-full">
             <div className="absolute inset-0 opacity-[0.5] z-[-1]">
                 <LazyLoadImage
                     width="100%"
                     height="100%"
-                    src='/assets/img/testtDetailinn.webp'
+                    src={imgUrl+(detail?.backdrop_path||detail?.belongs_to_collection?.backdrop_path||detail?.poster_path)}
                     className="size-full object-cover"
                     effect="blur"
                 />
             </div>
             <motion.div 
-            variants={itemVariants}
-            initial="hidden"   
-            animate="visible"
-            className="flex flex-col gap-[25px] w-full max-[423px]:px-[10px] px-[50px] min-[800px]:px-[80px] min-[1200px]:px-[100px]">
-                <div className="aspect-[25/6] w-[55vw] min-[600px]:w-[450px]">
-                    <img className="size-full object-cover" src="/assets/img/testtDetailin2.webp" />
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: .7, ease: "easeOut" }}
+            className="flex flex-col items-start gap-[25px] w-full max-[423px]:px-[10px] px-[50px] min-[800px]:px-[80px] min-[1200px]:px-[100px]">
+                <div className="w-[25%] max-[800px]:w-[45%]">
+                    <img className="size-full object-contain" src={imgUrl + detail?.topImg_path} />
                 </div>
                 <div className="flex items-center gap-[clamp(5px,2vw,10px)] text-[12px] min-[800px]:text-[14px] min-[1000px]:text-[16px]">
                     <Button 
@@ -142,8 +167,8 @@ function Detail() {
                         }
                     </IconButton>
                 </div>
-                <h2 className="text-white text-[14px] font-[400] min-[800px]:text-[16px] min-[1000px]:text-[18px]">2024 • Animation, Adventure, Family, Comedy</h2>
-                <p className="min-[1000px]:mr-[200px] text-white text-[14px] font-[400] min-[800px]:text-[16px] min-[1000px]:text-[18px]">After receiving an unexpected call from her wayfinding ancestors, Moana journeys alongside Maui and a new crew to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.</p>
+                <h2 className="text-white text-[14px] font-[400] min-[800px]:text-[16px] min-[1000px]:text-[18px]">{detail?.release_date?.slice(0,4) || detail?.first_air_date?.slice(0,4)} • {detail?.genres?.map(item=>item.name).join(', ')}</h2>
+                <p className="min-[1000px]:mr-[200px] text-white text-[14px] font-[400] min-[800px]:text-[16px] min-[1000px]:text-[18px]">{detail?.overview}</p>
                 <IconButton
                 onClick={handleBack} 
                 sx={{
@@ -162,7 +187,7 @@ function Detail() {
                 </IconButton>
             </motion.div>
 
-            <ModalTrailer modalShow={modalShow} setModalShow={setModalShow} />
+            <ModalTrailer modalShow={modalShow} trailers={detail?.videos?.results?.filter(item=>item?.type=='Trailer'||item?.type=='Teaser')} setModalShow={setModalShow} />
         </div>
     )
 }

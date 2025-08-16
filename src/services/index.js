@@ -44,3 +44,13 @@ export async function getMainCategories(id) {
         return null
     }
 }
+
+export async function getDetailsById(id) {
+    try {
+        const res = await instanceForDisney.get(`/details/${id}`)
+        return res.data
+    } catch (error) {
+        return null
+    }
+}
+
