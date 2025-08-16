@@ -3,6 +3,7 @@ import { useState } from "react"
 import Intro from "./components/Intro"
 import AuthContext from "./context/AuthContext"
 import ScrollRestoreContext from "./context/ScrollRestoreContext";
+import WishlistContext from "./context/WishlistContext";
 
 function App() {
     const [showMain,setShowMain]=useState(false);
@@ -15,17 +16,19 @@ function App() {
           showMain && 
           <AuthContext>
             <ScrollRestoreContext>
-              {/* <Routes>
-                <Route element={<MainLayout />}>
-                  <Route path='/' element={<Landing />} />
-                  <Route path='/auth' element={<Auth />} />
-                  <Route path='/category/:id' element={<Categories />} />
-                  <Route path='/detail/:id' element={<Detail />} />
-                </Route>
+              <WishlistContext>
+                {/* <Routes>
+                  <Route element={<MainLayout />}>
+                    <Route path='/' element={<Landing />} />
+                    <Route path='/auth' element={<Auth />} />
+                    <Route path='/category/:id' element={<Categories />} />
+                    <Route path='/detail/:id' element={<Detail />} />
+                  </Route>
 
-                <Route path='*' element={<PageNotFoundError />} />
-              </Routes> */}
-              <Outlet />
+                  <Route path='*' element={<PageNotFoundError />} />
+                </Routes> */}
+                <Outlet />
+              </WishlistContext>
             </ScrollRestoreContext>
           </AuthContext>
         }

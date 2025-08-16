@@ -5,11 +5,11 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import SearchIcon from '@mui/icons-material/Search';
 
 export const menuData=[
-    {id:'1', name:'home',icon:<HomeIcon sx={{fontSize:'large'}} />},
-    {id:'2', name:'search',icon:<SearchIcon sx={{fontSize:'large'}} />},
-    {id:'3', name:'my list',icon:<PlaylistAddIcon sx={{fontSize:'large'}} />},
-    {id:'4', name:'movies',icon:<LocalMoviesIcon sx={{fontSize:'large'}} />},
-    {id:'5', name:'series',icon:<MovieFilterIcon sx={{fontSize:'large'}} />}
+    {id:'1', linkTo:'/', name:'home',icon:<HomeIcon sx={{fontSize:'large'}} />},
+    {id:'2', linkTo:'/search', name:'search',icon:<SearchIcon sx={{fontSize:'large'}} />},
+    {id:'3', linkTo:'/wishes', name:'my list',icon:<PlaylistAddIcon sx={{fontSize:'large'}} />},
+    {id:'4', linkTo:'/movies', name:'movies',icon:<LocalMoviesIcon sx={{fontSize:'large'}} />},
+    {id:'5', linkTo:'/series', name:'series',icon:<MovieFilterIcon sx={{fontSize:'large'}} />}
 ];
 
 export const topSliderData = [

@@ -10,7 +10,7 @@ function NormMenu() {
             <Button
             key={item.id}
             component={Link}
-            to='/'
+            to={item.linkTo}
             startIcon={item.icon}
             sx={{
                 padding:'6px 8px',

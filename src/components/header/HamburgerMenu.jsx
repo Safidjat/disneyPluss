@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@mui/material';
 import CustomDisneyHamburger from './СustomHamburger';
 import { menuData } from '../../services/componentsData';
+import { Link } from 'react-router-dom';
 
 function HamburgerMenu() {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -65,6 +66,8 @@ function HamburgerMenu() {
                 {
                     menuData.map(item=>(
                         <MenuItem key={item.id}
+                            component={Link}
+                            to={item.linkTo}
                             sx={{
                                 paddingBlock: '22px',
                                 paddingLeft:'35px',

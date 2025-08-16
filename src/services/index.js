@@ -53,4 +53,12 @@ export async function getDetailsById(id) {
         return null
     }
 }
+export async function getAllDetails() {
+    try {
+        const res = await instanceForDisney.get(`/details`)
+        return res.data
+    } catch (error) {
+        return null
+    }
+}
 

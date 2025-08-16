@@ -9,6 +9,7 @@ import Auth from './pages/Auth/index.jsx';
 import Categories from './pages/Categories/index.jsx';
 import Detail from './pages/Detail/index.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import WishlistPage from './pages/WishlistPage/index.jsx';
 
     // <BrowserRouter>
     //     <App />
@@ -37,7 +38,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
                         {
                             path: '/detail/:id',
                             element: <Detail />
-                        }
+                        },
+                        {
+                            path: '/wishes',
+                            element: <WishlistPage />
+                        },
                     ]
                 },
                 {

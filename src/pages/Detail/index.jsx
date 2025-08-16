@@ -1,6 +1,6 @@
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { imgUrl, itemVariants } from "../../services/componentsData"
+import { imgUrl } from "../../services/componentsData"
 import { motion } from 'framer-motion';
 import { Button, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -16,10 +16,10 @@ import ModalTrailer from "../../modals/ModalTrailer";
 import PageLoadError from "../../components/main/PageLoadError";
 import { PulseLoader } from "react-spinners";
 import LoadingVerify from "../../components/LoadingVerify";
-import { getDetailsById } from "../../services";
+import { getAllDetails, getDetailsById } from "../../services";
+import { useWishList } from "../../context/WishlistContext";
 
 function Detail() {
-    const [added,setAdded]=useState(false);
     const [modalShow, setModalShow] = useState(false);
     const{isLoggedIn,isLoading}=useAuth() 
     const [detail,setDetail]=useState({});
@@ -29,6 +29,7 @@ function Detail() {
     const location = useLocation();
     const {id}=useParams();
     const {setMayScroll}=useScrollY();
+    const {wishBasket,removeFromWishes,addToWishes}=useWishList()
 
     useEffect(()=>{
         getDetailsById(id)
@@ -48,11 +49,12 @@ function Detail() {
         }
         else navigate('/')
     }
-    function handleAddToWishlist(){
-        setAdded(prev=>!prev)
+    function handleBasket(){
+        if(wishBasket.find(item=>item.id==id)) removeFromWishes(id)
+        else addToWishes(id,detail?.poster_path)
     }
 
-
+    
     return (
         !isLoggedIn?<Auth />:
         isLoading?<LoadingVerify />:
@@ -74,11 +76,17 @@ function Detail() {
             <motion.div 
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: .7, ease: "easeOut" }}
+            transition={{ duration: .7, ease: "easeOut",delay: 0.7 }}
             className="flex flex-col items-start gap-[25px] w-full max-[423px]:px-[10px] px-[50px] min-[800px]:px-[80px] min-[1200px]:px-[100px]">
-                <div className="w-[25%] max-[800px]:w-[45%]">
-                    <img className="size-full object-contain" src={imgUrl + detail?.topImg_path} />
-                </div>
+                {
+                    detail?.topImg_path
+                    ?
+                    <div className="w-[25%] max-[800px]:w-[45%]">
+                        <img className="size-full object-contain" src={imgUrl + detail?.topImg_path} />
+                    </div> 
+                    :
+                    <h1 className="text-[35px] max-[400px]:text-[20px] text-left text-white font-bold w-full">{detail?.title}</h1>
+                }
                 <div className="flex items-center gap-[clamp(5px,2vw,10px)] text-[12px] min-[800px]:text-[14px] min-[1000px]:text-[16px]">
                     <Button 
                     startIcon={<PlayArrowRoundedIcon fontSize="small"/>}
@@ -106,8 +114,12 @@ function Detail() {
                                 marginRight: '2px', 
                             } 
                         },
+                        '@media (max-width: 300px)': {
+                            width:'100px',
+                        },
                         '@media (max-width: 290px)': {
                             fontSize: '10px',
+                            width:'70px',
                         }, 
                     }}
 
@@ -140,14 +152,19 @@ function Detail() {
                                 marginRight: '2px', 
                             } 
                         },
+                        '@media (max-width: 300px)': {
+                            width:'100px',
+                        },
                         '@media (max-width: 290px)': {
                             fontSize: '10px',
+                            width:'80px',
                         },
                     }}
                     variant="contained" disableElevation>
                         Trailer
                     </Button>
                     <IconButton
+                    onClick={handleBasket}
                     component={Link}
                     to=""
                     sx={{
@@ -163,7 +180,11 @@ function Detail() {
                     }}
                     >
                         {
-                            added?<CheckRoundedIcon onClick={handleAddToWishlist} fontSize="small" />:<AddRoundedIcon onClick={handleAddToWishlist} fontSize="small" />
+                            wishBasket.find(item=>item.id==id)
+                            ?
+                            <CheckRoundedIcon fontSize="small" />
+                            :
+                            <AddRoundedIcon fontSize="small" />
                         }
                     </IconButton>
                 </div>
