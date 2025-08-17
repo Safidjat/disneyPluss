@@ -50,7 +50,7 @@ function Detail() {
         else navigate('/')
     }
     function handleBasket(){
-        if(wishBasket.find(item=>item.id==id)) removeFromWishes(id)
+        if(wishBasket.basket.find(item=>item.id==id)) removeFromWishes(id)
         else addToWishes(id,detail?.poster_path)
     }
 
@@ -180,7 +180,7 @@ function Detail() {
                     }}
                     >
                         {
-                            wishBasket.find(item=>item.id==id)
+                            wishBasket.basket.find(item=>item.id==id)
                             ?
                             <CheckRoundedIcon fontSize="small" />
                             :

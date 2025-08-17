@@ -1,13 +1,16 @@
-import { useState } from "react"
+import { useLayoutEffect, useState } from "react"
 import AuthView from "../../components/main/AuthView"
 import { useAuth } from "../../context/AuthContext"
 import LoadingVerify from "../../components/LoadingVerify"
 
 
-
 function Auth() {
     const [signInFirst,setView]=useState(true)
-    const {isLoading}=useAuth() 
+    const {isLoading}=useAuth()
+    
+    useLayoutEffect(() => {
+        scrollTo(0, false);
+    }, []); 
 
     return (
         isLoading?<LoadingVerify />:

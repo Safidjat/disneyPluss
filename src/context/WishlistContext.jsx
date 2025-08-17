@@ -1,22 +1,42 @@
 import { createContext, useContext, useEffect, useState } from "react"
+import { useAuth } from "./AuthContext";
 
 const WishList=createContext(null)
 
 function WishlistContext({children}) {
-    const [wishBasket,setwishBasket]=useState(JSON.parse(localStorage.getItem('wishBasket')) || [])
+    const{userName,isLoggedIn}=useAuth();
+    const [wishBasket,setwishBasket]=useState({user:null,basket:[]});
 
     useEffect(()=>{
-        localStorage.setItem('wishBasket',JSON.stringify(wishBasket))
+        if(isLoggedIn){
+            setwishBasket(JSON.parse(localStorage.getItem(`wishBasket_${userName}`)) || {user:userName,basket:[]})
+        }
+    },[userName])
+
+    useEffect(()=>{
+        localStorage.setItem(`wishBasket_${userName}`,JSON.stringify(wishBasket))
     },[wishBasket])
 
     function removeFromWishes(iD){
-        setwishBasket(prev=> prev.filter(item=>item.id!=iD))
+        setwishBasket(prev=> {
+            const newBasket=prev.basket.filter(item=>item.id!=iD);
+            return {
+                ...prev,
+                basket:newBasket
+            }
+        })
     }
     function clearWishes(){
-        setwishBasket([])
+        setwishBasket({
+            user:userName,
+            basket:[]
+        })
     }
     function addToWishes(id,poster_path){
-        setwishBasket([{id,poster_path},...wishBasket])
+        setwishBasket({
+            user:userName,
+            basket:[{id,poster_path},...wishBasket.basket]
+        })
     }
 
     return (

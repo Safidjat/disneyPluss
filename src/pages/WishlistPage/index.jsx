@@ -5,17 +5,25 @@ import Auth from "../Auth";
 import LoadingVerify from "../../components/LoadingVerify";
 import { useWishList } from "../../context/WishlistContext";
 import { useScrollY } from "../../context/ScrollRestoreContext";
+import { scrollTo } from "../../utilities/scroll";
 
 function WishlistPage() {
     const{isLoading,isLoggedIn}=useAuth();
     const {wishBasket}=useWishList();
     const {handleScrollY,setScrollYinfo}=useScrollY();
 
-    useLayoutEffect(()=>{
-        if (wishBasket.length) {
-            handleScrollY();
+    
+
+    useLayoutEffect(() => {
+        scrollTo(0, false);
+    }, []); 
+
+    useEffect(() => {
+        if (wishBasket.basket.length > 0) {
+            handleScrollY(); 
         }
-    },[wishBasket])
+    }, [wishBasket]);
+
 
     return (
         !isLoggedIn?<Auth />:
@@ -24,9 +32,9 @@ function WishlistPage() {
             <h1 className="text-[18px] min-[800px]:text-[25px] font-bold text-white">My List</h1>
             <div className="min-h-[609.600px]">
                 {
-                    wishBasket.length
+                    wishBasket.basket.length
                     ?
-                    <BlogView blogData={wishBasket} setScrollYinfo={setScrollYinfo}/>
+                    <BlogView blogData={wishBasket.basket} setScrollYinfo={setScrollYinfo}/>
                     :
                     <h1 className="text-white font-[400] text-[14px] min-[600px]:text-[18px] min-[1000px]:text-[20px]">Your watch list is empty. Why don't you add something in here? 💫</h1>
                 }
