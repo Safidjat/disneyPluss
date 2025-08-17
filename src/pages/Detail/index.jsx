@@ -16,7 +16,7 @@ import ModalTrailer from "../../modals/ModalTrailer";
 import PageLoadError from "../../components/main/PageLoadError";
 import { PulseLoader } from "react-spinners";
 import LoadingVerify from "../../components/LoadingVerify";
-import { getAllDetails, getDetailsById } from "../../services";
+import { getDetailsById } from "../../services";
 import { useWishList } from "../../context/WishlistContext";
 
 function Detail() {
@@ -59,7 +59,7 @@ function Detail() {
         !isLoggedIn?<Auth />:
         isLoading?<LoadingVerify />:
         pageLoading? 
-        <div className="w-full h-[calc(100vh-168px)] flex justify-center items-center">
+        <div className="w-full min-h-[calc(100vh-168px)] flex justify-center items-center">
             <PulseLoader color={"#fff"} size={10} className="customLoader"/>
         </div>:
         pageError?<PageLoadError />:

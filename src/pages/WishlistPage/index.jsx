@@ -8,14 +8,14 @@ import { useScrollY } from "../../context/ScrollRestoreContext";
 
 function WishlistPage() {
     const{isLoading,isLoggedIn}=useAuth();
-    const {wishBasket}=useWishList()
+    const {wishBasket}=useWishList();
     const {handleScrollY,setScrollYinfo}=useScrollY();
 
-    // useLayoutEffect(()=>{
-    //     if (wishBasket.length) {
-    //         handleScrollY();
-    //     }
-    // },[])
+    useLayoutEffect(()=>{
+        if (wishBasket.length) {
+            handleScrollY();
+        }
+    },[wishBasket])
 
     return (
         !isLoggedIn?<Auth />:
