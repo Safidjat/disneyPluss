@@ -4,6 +4,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 
 function BlogView({blogData,setScrollYinfo}) {
+    
     return (
         <div className="flex flex-wrap w-full gap-[16px]">
             {

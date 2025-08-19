@@ -12,8 +12,6 @@ function WishlistPage() {
     const {wishBasket}=useWishList();
     const {handleScrollY,setScrollYinfo}=useScrollY();
 
-    
-
     useLayoutEffect(() => {
         scrollTo(0, false);
     }, []); 
@@ -24,10 +22,9 @@ function WishlistPage() {
         }
     }, [wishBasket]);
 
-
     return (
-        !isLoggedIn?<Auth />:
         isLoading?<LoadingVerify />:
+        !isLoggedIn?<Auth />:
         <div className="w-full max-[210px]:px-[16px] p-[60px] flex flex-col gap-[30px]">
             <h1 className="text-[18px] min-[800px]:text-[25px] font-bold text-white">My List</h1>
             <div className="min-h-[609.600px]">

@@ -41,8 +41,8 @@ function Categories() {
     }, [categoryData]);
 
     return (
-        !isLoggedIn?<Auth />:
         isLoading?<LoadingVerify />:
+        !isLoggedIn?<Auth />:
         pageLoading? 
         <div className="w-full h-[calc(100vh-168px)] flex justify-center items-center">
             <PulseLoader color={"#fff"} size={10} className="customLoader"/>

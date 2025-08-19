@@ -18,11 +18,13 @@ import { PulseLoader } from "react-spinners";
 import LoadingVerify from "../../components/LoadingVerify";
 import { getDetailsById } from "../../services";
 import { useWishList } from "../../context/WishlistContext";
+import Popover from '@mui/material/Popover';
 
 function Detail() {
     const [modalShow, setModalShow] = useState(false);
     const{isLoggedIn,isLoading}=useAuth() 
     const [detail,setDetail]=useState({});
+    const [trailers,setTrailers]=useState([]);
     const [pageLoading,setPageLoading]=useState(true);
     const [pageError,setPageError]=useState(false);
     let navigate = useNavigate()
@@ -30,18 +32,27 @@ function Detail() {
     const {id}=useParams();
     const {setMayScroll}=useScrollY();
     const {wishBasket,removeFromWishes,addToWishes}=useWishList()
+    const [open, setOpen] = useState(null);
+
 
     useEffect(()=>{
         getDetailsById(id)
         .then((res)=>{
             if(Object.keys(res).length){
                 setDetail(res);
+                setTrailers(res?.videos?.results?.filter(item=>item?.type=='Trailer'||item?.type=='Teaser'));
                 setPageError(false);
             }else setPageError(true);
             setPageLoading(false);
         })
     },[id])
 
+    const handlePopoverOpen = (event) => {
+        if(!trailers?.length) setOpen(event.currentTarget);
+    };
+    const handlePopoverClose = () => {
+        setOpen(null);
+    };
     function handleBack(){
         if(location.key!=='default'){
             navigate(-1);
@@ -53,11 +64,13 @@ function Detail() {
         if(wishBasket.basket.find(item=>item.id==id)) removeFromWishes(id)
         else addToWishes(id,detail?.poster_path)
     }
-
+    function handleTrailerShow(){
+        if(trailers?.length) setModalShow(true)
+    }
     
     return (
-        !isLoggedIn?<Auth />:
         isLoading?<LoadingVerify />:
+        !isLoggedIn?<Auth />:
         pageLoading? 
         <div className="w-full min-h-[calc(100vh-168px)] flex justify-center items-center">
             <PulseLoader color={"#fff"} size={10} className="customLoader"/>
@@ -126,43 +139,73 @@ function Detail() {
                     variant="contained">
                         Play
                     </Button>
-                    <Button 
-                    onClick={()=>setModalShow(true)}
-                    startIcon={<PlayArrowRoundedIcon fontSize="small" />}
-                    sx={{
-                        width:'clamp(60px, 22vw, 150px)',
-                        height:'clamp(22px, 37px, 37px)',
-                        borderRadius:'4px',
-                        textTransform:'uppercase',
-                        backgroundColor: '#0009',
-                        color:'#f9f6ee',
-                        transitionDuration:'0.3s',
-                        '&:hover': {
-                            backgroundColor: 'black',
-                        },
-                        fontSize: '12px',
-                        '@media (min-width: 800px)': {
-                            fontSize: '14px', 
-                        },
-                        '@media (min-width: 1000px)': {
-                            fontSize: '16px', 
-                        },
-                        '@media (max-width: 400px)': {
-                            '& .MuiButton-startIcon': {
-                                marginRight: '2px', 
-                            } 
-                        },
-                        '@media (max-width: 300px)': {
-                            width:'100px',
-                        },
-                        '@media (max-width: 290px)': {
-                            fontSize: '10px',
-                            width:'80px',
-                        },
-                    }}
-                    variant="contained" disableElevation>
-                        Trailer
-                    </Button>
+                    <div>
+                        <Button 
+                        onClick={handleTrailerShow}
+                        onMouseEnter={handlePopoverOpen}
+                        onMouseLeave={handlePopoverClose}
+                        startIcon={<PlayArrowRoundedIcon fontSize="small" />}
+                        sx={{
+                            width:'clamp(60px, 22vw, 150px)',
+                            height:'clamp(22px, 37px, 37px)',
+                            borderRadius:'4px',
+                            textTransform:'uppercase',
+                            backgroundColor: '#0009',
+                            color:'#f9f6ee',
+                            transitionDuration:'0.3s',
+                            '&:hover': {
+                                backgroundColor: 'black',
+                            },
+                            fontSize: '12px',
+                            '@media (min-width: 800px)': {
+                                fontSize: '14px', 
+                            },
+                            '@media (min-width: 1000px)': {
+                                fontSize: '16px', 
+                            },
+                            '@media (max-width: 400px)': {
+                                '& .MuiButton-startIcon': {
+                                    marginRight: '2px', 
+                                } 
+                            },
+                            '@media (max-width: 300px)': {
+                                width:'100px',
+                            },
+                            '@media (max-width: 290px)': {
+                                fontSize: '10px',
+                                width:'80px',
+                            },
+                        }}
+                        variant="contained" disableElevation>
+                            Trailer
+                        </Button>
+                        <Popover
+                            id="mouse-over-popover"
+                            sx={{ pointerEvents: 'none' }}
+                            open={open}
+                            anchorEl={open}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                            onClose={handlePopoverClose}
+                            disableRestoreFocus
+                            slotProps={{
+                                paper: {
+                                    sx: {
+                                        padding: '10px',
+                                        marginTop:'5px'
+                                    }
+                                }
+                            }}
+                        >
+                            <h3 className="text-center min-w-[60px]">No video for this one.🥲</h3>
+                        </Popover>
+                    </div>
                     <IconButton
                     onClick={handleBasket}
                     component={Link}
@@ -207,8 +250,7 @@ function Detail() {
                     <ArrowBackIosNewRoundedIcon fontSize="small" />
                 </IconButton>
             </motion.div>
-
-            <ModalTrailer modalShow={modalShow} trailers={detail?.videos?.results?.filter(item=>item?.type=='Trailer'||item?.type=='Teaser')} setModalShow={setModalShow} />
+            {modalShow&&<ModalTrailer modalShow={modalShow} trailers={trailers} setModalShow={setModalShow} />}
         </div>
     )
 }

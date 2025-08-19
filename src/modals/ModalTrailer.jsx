@@ -3,7 +3,6 @@ import { youTubeUrl } from "../services/componentsData"
 
 function ModalTrailer({modalShow,setModalShow,trailers}) {
     function theLatestTrailer(){
-        if (!trailers?.length) return null;
         const now = new Date();
         return [...trailers].sort((a,b)=>Math.abs(new Date(a.published_at)-now)-Math.abs(new Date(b.published_at)-now))[0]
     }
