@@ -10,6 +10,7 @@ import Categories from './pages/Categories/index.jsx';
 import Detail from './pages/Detail/index.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import WishlistPage from './pages/WishlistPage/index.jsx';
+import SearchPage from './pages/SearchPage/index.jsx';
 
     // <BrowserRouter>
     //     <App />
@@ -42,6 +43,10 @@ import WishlistPage from './pages/WishlistPage/index.jsx';
                         {
                             path: '/wishes',
                             element: <WishlistPage />
+                        },
+                        {
+                            path: '/search',
+                            element: <SearchPage />
                         },
                     ]
                 },

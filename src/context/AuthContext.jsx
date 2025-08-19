@@ -18,7 +18,8 @@ function AuthContext({children}) {
     && !matchPath('/auth', location.pathname) 
     && !matchPath('/category/:id', location.pathname)
     && !matchPath('/detail/:id', location.pathname)
-    && !matchPath('/wishes', location.pathname);
+    && !matchPath('/wishes', location.pathname)
+    && !matchPath('/search', location.pathname);
 
     const showNotification =(message, severity='info')=>{
         setNotification({

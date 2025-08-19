@@ -53,10 +53,26 @@ export async function getDetailsById(id) {
         return null
     }
 }
+
+// function transform(arr){
+//     const allUnicIds=new Set(arr.filter(item=>item.id));
+//     let idsToRemove=[];
+//     allUnicIds.forEach(elemId=>{
+//         const elems=arr.filter(item=>item.id==elemId)
+//         if(elems.length>1)  idsToRemove.push(elemId)
+//     })
+//     const cleanArr = arr.filter(item => !idsToRemove.has(item.id));
+//     idsToRemove.forEach(iD=>{
+//         cleanArr.push(arr.find(elem=>elem.id===iD));
+//     })
+//     return cleanArr
+
+// }
+
 export async function getAllDetails() {
     try {
         const res = await instanceForDisney.get(`/details`)
-        return res.data
+        return res.data.filter(item=>item.id!='1428')
     } catch (error) {
         return null
     }

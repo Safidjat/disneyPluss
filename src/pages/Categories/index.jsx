@@ -28,11 +28,7 @@ function Categories() {
         })
     },[id])
 
-    // useEffect(()=>{
-    //     setTimeout(() => {
-    //         handleScrollY();
-    //     }, 1000); 
-    // },[categoryData])
+    
 
     useLayoutEffect(()=>{
         if (categoryData?.data?.length) {
