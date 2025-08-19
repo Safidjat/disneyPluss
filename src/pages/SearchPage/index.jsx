@@ -35,7 +35,6 @@ function SearchPage() {
             handleScrollY();
         }
     }, [allData]);
-console.log(allData.length);
 
     const selectRandom20=(res)=> {
         const arr=[...res];
