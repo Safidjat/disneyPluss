@@ -35,8 +35,12 @@ function SearchPage() {
             handleScrollY();
         }
     }, [allData]);
+console.log(allData.length);
 
-    const selectRandom20=(res)=> res?.sort(()=>Math.random()-0.5).splice(0,20)
+    const selectRandom20=(res)=> {
+        const arr=[...res];
+        return arr.sort(()=>Math.random()-0.5).splice(0,20)
+    }
     function axtar(){
         const newData= allData.filter(item=>{
             if(item?.original_title) return item?.original_title?.toLowerCase().includes(search)
@@ -45,7 +49,6 @@ function SearchPage() {
         })
         return newData.splice(0,20)
     }
-    
 
     return (
         isLoading?<LoadingVerify />:
