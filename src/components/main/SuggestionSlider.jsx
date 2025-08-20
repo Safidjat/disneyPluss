@@ -25,7 +25,7 @@ function SuggestionSlider({data}) {
             <div className='relative w-full pb-[60px] pt-[20px] overflow-hidden'>
                 <button 
                 ref={prevRef}
-                className='absolute w-[7%] min-[600px]:w-[5%] group grid place-items-center top-0 bottom-0 left-0 h-full z-[100]  cursor-pointer'
+                className='absolute w-[7%] min-[600px]:w-[5%] group grid place-items-center top-[20px] bottom-[60px] left-0 z-[100]  cursor-pointer'
                 role="button"
                 >
                     <FaChevronCircleLeft className='max-[700px]:text-[20px] max-[890px]:text-[25px] max-[1200px]:text-[30px] min-[1200px]:text-[38px] group-hover:opacity-100 opacity-60 text-white transition-all duration-300 ease-in-out' />
@@ -33,7 +33,7 @@ function SuggestionSlider({data}) {
 
                 <button 
                 ref={nextRef}
-                className='absolute w-[7%] min-[600px]:w-[5%] group grid place-items-center top-0 bottom-0 right-0 h-full z-[100]  cursor-pointer'
+                className='absolute w-[7%] min-[600px]:w-[5%] group grid place-items-center top-[20px] bottom-[60px] right-0 z-[100]  cursor-pointer'
                 role="button"
                 >
                     <FaChevronCircleRight  className='max-[700px]:text-[20px] max-[890px]:text-[25px] max-[1200px]:text-[30px] min-[1200px]:text-[38px] group-hover:opacity-100 opacity-60 text-white transition-all duration-300 ease-in-out' />
