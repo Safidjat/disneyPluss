@@ -11,6 +11,8 @@ import Detail from './pages/Detail/index.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import WishlistPage from './pages/WishlistPage/index.jsx';
 import SearchPage from './pages/SearchPage/index.jsx';
+import MoviesPage from './pages/MoviesPage/index.jsx';
+import SeriesPage from './pages/SeriesPage/index.jsx';
 
     // <BrowserRouter>
     //     <App />
@@ -47,6 +49,14 @@ import SearchPage from './pages/SearchPage/index.jsx';
                         {
                             path: '/search',
                             element: <SearchPage />
+                        },
+                        {
+                            path: '/movies',
+                            element: <MoviesPage />
+                        },
+                        {
+                            path: '/series',
+                            element: <SeriesPage />
                         },
                     ]
                 },

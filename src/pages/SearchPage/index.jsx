@@ -72,7 +72,7 @@ function SearchPage() {
             </div>
             <div className="w-full max-[210px]:px-[16px] p-[60px] pt-[30px] flex flex-col gap-[30px]">
                 <h1 className="text-[18px] min-[800px]:text-[25px] font-bold text-white">{search=='' ? 'Explore' : `Search results for ${search}`}</h1>
-                <div className="min-h-[609.600px]">
+                <div>
                     {
                         !axtar().length>0
                         ?
