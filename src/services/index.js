@@ -68,11 +68,36 @@ export async function getDetailsById(id) {
 //     return cleanArr
 
 // }
-
+const filterData=(arr)=>{
+    return arr.filter(item=>
+          item.id!='13805'
+          &&item.id!='173705'
+          &&item.id!='611251'
+          &&item.id!='1428'
+          &&item.id!='460229'
+    )
+}
 export async function getAllDetails() {
     try {
         const res = await instanceForDisney.get(`/details`)
-        return res.data.filter(item=>item.id!='1428')
+        return filterData(res.data)
+    } catch (error) {
+        return null
+    }
+}
+
+export async function getAllMovies() {
+    try {
+        const res = await instanceForDisney.get(`/movies`)
+        return filterData(res.data)
+    } catch (error) {
+        return null
+    }
+}
+export async function getAllSeries() {
+    try {
+        const res = await instanceForDisney.get(`/series`)
+        return filterData(res.data)
     } catch (error) {
         return null
     }

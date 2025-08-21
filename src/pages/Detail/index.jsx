@@ -76,7 +76,7 @@ function Detail() {
             <PulseLoader color={"#fff"} size={10} className="customLoader"/>
         </div>:
         pageError?<PageLoadError />:
-        <div className="relative h-[665.600px] grid place-items-center w-full">
+        <div className="relative h-[665.600px]  grid place-items-center w-full">
             <div className="absolute inset-0 opacity-[0.5] z-[-1]">
                 <LazyLoadImage
                     width="100%"
@@ -94,8 +94,8 @@ function Detail() {
                 {
                     detail?.topImg_path
                     ?
-                    <div className="w-[25%] max-[800px]:w-[45%]">
-                        <img className="size-full object-contain" src={imgUrl + detail?.topImg_path} />
+                    <div className="w-[25%] max-[800px]:w-[45%] ">
+                        <img className="size-full object-fill !max-h-[30vh]" src={imgUrl + detail?.topImg_path} />
                     </div> 
                     :
                     <h1 className="text-[35px] max-[400px]:text-[20px] text-left text-white font-bold w-full">{detail?.title}</h1>

@@ -19,7 +19,9 @@ function AuthContext({children}) {
     && !matchPath('/category/:id', location.pathname)
     && !matchPath('/detail/:id', location.pathname)
     && !matchPath('/wishes', location.pathname)
-    && !matchPath('/search', location.pathname);
+    && !matchPath('/search', location.pathname)
+    && !matchPath('/movies', location.pathname)
+    && !matchPath('/series', location.pathname);
 
     const showNotification =(message, severity='info')=>{
         setNotification({

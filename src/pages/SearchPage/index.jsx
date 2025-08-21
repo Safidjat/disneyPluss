@@ -8,6 +8,7 @@ import PageLoadError from '../../components/main/PageLoadError';
 import { getAllDetails } from '../../services';
 import { useAuth } from '../../context/AuthContext';
 import BlogView from '../../components/main/BlogView';
+import { selectRandom20 } from '../../utilities/selectRandom20';
 
 function SearchPage() {
     const{isLoading,isLoggedIn}=useAuth()
@@ -36,15 +37,12 @@ function SearchPage() {
         }
     }, [allData]);
 
-    const selectRandom20=(res)=> {
-        const arr=[...res];
-        return arr.sort(()=>Math.random()-0.5).splice(0,20)
-    }
+    
     function axtar(){
         const newData= allData.filter(item=>{
-            if(item?.original_title) return item?.original_title?.toLowerCase().includes(search)
-            else if(item?.title) return item?.title?.toLowerCase().includes(search)
-            else return item?.name?.toLowerCase().includes(search)
+            if(item?.original_title) return item?.original_title?.toLowerCase().includes(search.trim().toLowerCase())
+            else if(item?.title) return item?.title?.toLowerCase().includes(search.trim().toLowerCase())
+            else return item?.name?.toLowerCase().includes(search.trim().toLowerCase())
         })
         return newData.splice(0,20)
     }
@@ -57,14 +55,14 @@ function SearchPage() {
             <PulseLoader color={"#fff"} size={10} className="customLoader"/>
         </div>:
         pageError?<PageLoadError />:
-        <>
+        <div className="min-h-[567.6px]">
             <div className="w-full grid place-items-center py-[20px] min-[700px]:py-[40px] min-[1200px]:py-[60px]">
                 <div className="bg-[#4b4e5a] rounded-[8px] flex items-center gap-[10px] w-[85%] min-[700px]:w-[90%] min-[1200px]:w-[95%] p-[10px] min-[700px]:p-[15px] min-[1200px]:p-[20px]" >
                     <SearchIcon fontSize='medium' sx={{color:'white'}} />
                     <input 
                     type="text" 
                     value={search}
-                    onInput={e => setSearch(e.target.value.trim().toLowerCase())}
+                    onInput={e => setSearch(e.target.value)}
                     className="outline-none w-full h-[32px] min-[700px]:h-[35px] min-[1200px]:h-[38px] bg-[#4b4e5a] placeholder:text-[#97989f] text-white text-[16px] font-[500] min-[700px]:text-[18px] min-[1200px]:text-[20px]"
                     placeholder="Search for movies or series..."
                     />
@@ -82,7 +80,7 @@ function SearchPage() {
                     }
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

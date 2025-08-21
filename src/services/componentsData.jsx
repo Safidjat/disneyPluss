@@ -29,25 +29,25 @@ export const collections = [
 ];
 
 export const genres=[
-  {id:'1', name:'Action', num:'28', type:['movie']},
-  {id:'2', name:'Adventure', num:'12', type:['movie']},
-  {id:'3', name:'Animation', num:'16', type:['movie','series']},
-  {id:'4', name:'Comedy', num:'35', type:['movie','series']},
-  {id:'5', name:'Crime', num:'80', type:['movie','series']},
-  {id:'6', name:'Documentary', num:'99', type:['movie','series']},
-  {id:'7', name:'Drama', num:'18', type:['movie','series']},
-  {id:'8', name:'Family', num:'10751', type:['movie','series']},
-  {id:'9', name:'Fantasy', num:'14', type:['movie']},
-  {id:'10', name:'Horror', num:'27', type:['movie']},
-  {id:'11', name:'Mystery', num:'9648', type:['movie','series']},
-  {id:'12', name:'Romance', num:'10749', type:['movie']},
-  {id:'13', name:'Science Fiction', num:'878', type:['movie']},
-  {id:'14', name:'Thriller', num:'53', type:['movie']},
-  {id:'15', name:'Action & Adventure', num:'10759', type:'series'},
-  {id:'16', name:'Kids', num:'10762', type:'series'},
-  {id:'17', name:'News', num:'10763', type:'series'},
-  {id:'18', name:'Reality', num:'10764', type:'series'},
-  {id:'19', name:'Sci-Fi & Fantasy', num:'10765', type:'series'}
+  {id:'1', name:'Action', num:28, type:['movie']},
+  {id:'2', name:'Adventure', num:12, type:['movie']},
+  {id:'3', name:'Animation', num:16, type:['movie','series']},
+  {id:'4', name:'Comedy', num:35, type:['movie','series']},
+  {id:'5', name:'Crime', num:80, type:['movie','series']},
+  {id:'6', name:'Documentary', num:99, type:['movie','series']},
+  {id:'7', name:'Drama', num:18, type:['movie','series']},
+  {id:'8', name:'Family', num:10751, type:['movie','series']},
+  {id:'9', name:'Fantasy', num:14, type:['movie']},
+  {id:'10', name:'Horror', num:27, type:['movie']},
+  {id:'11', name:'Mystery', num:9648, type:['movie','series']},
+  {id:'12', name:'Romance', num:10749, type:['movie']},
+  {id:'13', name:'Science Fiction', num:878, type:['movie']},
+  {id:'14', name:'Thriller', num:53, type:['movie']},
+  {id:'15', name:'Action & Adventure', num:10759, type:'series'},
+  {id:'16', name:'Kids', num:10762, type:'series'},
+  {id:'17', name:'News', num:10763, type:'series'},
+  {id:'18', name:'Reality', num:10764, type:'series'},
+  {id:'19', name:'Sci-Fi & Fantasy', num:10765, type:'series'}
 ]
 
 export const imgUrl='https://image.tmdb.org/t/p/original';

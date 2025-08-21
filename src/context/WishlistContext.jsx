@@ -14,7 +14,9 @@ function WishlistContext({children}) {
     },[userName])
 
     useEffect(()=>{
-        localStorage.setItem(`wishBasket_${userName}`,JSON.stringify(wishBasket))
+        if(wishBasket.user){
+            localStorage.setItem(`wishBasket_${wishBasket.user}`,JSON.stringify(wishBasket))
+        }
     },[wishBasket])
 
     function removeFromWishes(iD){
