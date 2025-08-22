@@ -54,20 +54,7 @@ export async function getDetailsById(id) {
     }
 }
 
-// function transform(arr){
-//     const allUnicIds=new Set(arr.filter(item=>item.id));
-//     let idsToRemove=[];
-//     allUnicIds.forEach(elemId=>{
-//         const elems=arr.filter(item=>item.id==elemId)
-//         if(elems.length>1)  idsToRemove.push(elemId)
-//     })
-//     const cleanArr = arr.filter(item => !idsToRemove.has(item.id));
-//     idsToRemove.forEach(iD=>{
-//         cleanArr.push(arr.find(elem=>elem.id===iD));
-//     })
-//     return cleanArr
 
-// }
 const filterData=(arr)=>{
     return arr.filter(item=>
           item.id!='13805'
@@ -75,6 +62,7 @@ const filterData=(arr)=>{
           &&item.id!='611251'
           &&item.id!='1428'
           &&item.id!='460229'
+          &&item.id!='1476292'
     )
 }
 export async function getAllDetails() {
