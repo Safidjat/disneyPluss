@@ -9,16 +9,17 @@ import { getAllDetails } from '../../services';
 import { useAuth } from '../../context/AuthContext';
 import BlogView from '../../components/main/BlogView';
 import { selectRandom20 } from '../../utilities/selectRandom20';
+import { useSearchCriteries } from '../../context/SearchRestoreContext';
 
 function SearchPage() {
+    const{storage,isFromDetail,setIsFromDetail}=useSearchCriteries() 
     const{isLoading,isLoggedIn}=useAuth()
     const {handleScrollY,setScrollYinfo}=useScrollY();
     const [pageLoading,setPageLoading]=useState(true);
     const [pageError,setPageError]=useState(false);
     const [allData,setAllData]=useState([]);
     const [random20,setRandom20]=useState([]);
-    const [search,setSearch]=useState('');
-    
+    const [search,setSearch]=useState(isFromDetail?storage.searchText:'');
     
     useEffect(()=>{
         getAllDetails()
@@ -30,7 +31,11 @@ function SearchPage() {
             }else setPageError(true);
             setPageLoading(false);
         })
-    },[])
+        return ()=>{
+                setIsFromDetail(false);
+        }
+    },[]) 
+
     useLayoutEffect(()=>{
         if (allData?.length) {
             handleScrollY();
@@ -44,7 +49,17 @@ function SearchPage() {
             else if(item?.title) return item?.title?.toLowerCase().includes(search.trim().toLowerCase())
             else return item?.name?.toLowerCase().includes(search.trim().toLowerCase())
         })
-        return newData.splice(0,20)
+        if(isFromDetail) {
+            // const result=[];
+            // storage.frozenRandomView.forEach(iD=>{
+            //     result.push(allData.find(item=>item.id==iD))
+            // })
+            
+            // return result            
+            return storage.frozenRandomView
+        }
+        else if(search.trim()=='') return random20
+        else return selectRandom20(newData)
     }
 
     return (
@@ -62,21 +77,21 @@ function SearchPage() {
                     <input 
                     type="text" 
                     value={search}
-                    onInput={e => setSearch(e.target.value)}
+                    onInput={e => {setSearch(e.target.value);setIsFromDetail(false);}}
                     className="outline-none w-full h-[32px] min-[700px]:h-[35px] min-[1200px]:h-[38px] bg-[#4b4e5a] placeholder:text-[#97989f] text-white text-[16px] font-[500] min-[700px]:text-[18px] min-[1200px]:text-[20px]"
                     placeholder="Search for movies or series..."
                     />
                 </div>
             </div>
             <div className="w-full max-[210px]:px-[16px] p-[60px] pt-[30px] flex flex-col gap-[30px]">
-                <h1 className="text-[18px] min-[800px]:text-[25px] font-bold text-white">{search=='' ? 'Explore' : `Search results for ${search}`}</h1>
+                <h1 className="text-[18px] min-[800px]:text-[25px] font-bold text-white">{search.trim()=='' ? 'Explore' : `Search results for ${search}`}</h1>
                 <div>
                     {
                         !axtar().length>0
                         ?
                         <h3 className='text-center w-full pt-[20px] text-[14px] font-[500] text-white'>No movie or series containing your search term was found.</h3>
                         :
-                        <BlogView blogData={search==''?random20:axtar()} setScrollYinfo={setScrollYinfo}/>
+                        <BlogView blogData={axtar()} setScrollYinfo={setScrollYinfo} search={search} />
                     }
                 </div>
             </div>

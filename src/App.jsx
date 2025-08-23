@@ -4,6 +4,7 @@ import Intro from "./components/Intro"
 import AuthContext from "./context/AuthContext"
 import ScrollRestoreContext from "./context/ScrollRestoreContext";
 import WishlistContext from "./context/WishlistContext";
+import SearchRestoreContext from "./context/SearchRestoreContext";
 
 function App() {
     const [showMain,setShowMain]=useState(false);
@@ -17,17 +18,19 @@ function App() {
           <AuthContext>
             <ScrollRestoreContext>
               <WishlistContext>
-                {/* <Routes>
-                  <Route element={<MainLayout />}>
-                    <Route path='/' element={<Landing />} />
-                    <Route path='/auth' element={<Auth />} />
-                    <Route path='/category/:id' element={<Categories />} />
-                    <Route path='/detail/:id' element={<Detail />} />
-                  </Route>
+                <SearchRestoreContext>
+                  {/* <Routes>
+                    <Route element={<MainLayout />}>
+                      <Route path='/' element={<Landing />} />
+                      <Route path='/auth' element={<Auth />} />
+                      <Route path='/category/:id' element={<Categories />} />
+                      <Route path='/detail/:id' element={<Detail />} />
+                    </Route>
 
-                  <Route path='*' element={<PageNotFoundError />} />
-                </Routes> */}
-                <Outlet />
+                    <Route path='*' element={<PageNotFoundError />} />
+                  </Routes> */}
+                  <Outlet />
+                </SearchRestoreContext>
               </WishlistContext>
             </ScrollRestoreContext>
           </AuthContext>

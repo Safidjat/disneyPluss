@@ -8,7 +8,7 @@ import { PulseLoader } from "react-spinners";
 import Auth from "../../pages/Auth";
 import LoadingVerify from "../LoadingVerify";
 
-function MoviesSeriesView({setViewData,random20,setRandom20,data,pageError,pageLoading,type,selectedValue,setSelectedValue,filteredGenres}) {
+function MoviesSeriesView({setViewData,only20,setOnly20,data,pageError,pageLoading,type,selectedValue,setSelectedValue,filteredGenres}) {
     const isLessTnan320=useMatchMedia('(max-width: 320px)')
     const{isLoading,isLoggedIn}=useAuth()
     const {setScrollYinfo}=useScrollY();
@@ -39,7 +39,7 @@ function MoviesSeriesView({setViewData,random20,setRandom20,data,pageError,pageL
                         (e)=>{
                             const newValue = +e.target.value; 
                             setSelectedValue(newValue);      
-                            setRandom20(setViewData(newValue,data));
+                            setOnly20(setViewData(newValue,data));
                         }
                     } 
                     id="typeSelect" className="size-full truncate py-[10px] px-[20px] max-[320px]:px-[10px] max-[320px]:py-[5px] rounded-[50px] group cursor-pointer [text-align-last:center] text-[13px] font-[400] bg-[#31333c] hover:bg-[#31333C0D] border border-[#767676] text-white transition-all duration-[0.3s] appearance-none outline-none ">
@@ -52,7 +52,7 @@ function MoviesSeriesView({setViewData,random20,setRandom20,data,pageError,pageL
                     </select>
                 </div>
             </div>                
-            <BlogView blogData={random20} setScrollYinfo={setScrollYinfo} />
+            <BlogView blogData={only20} setScrollYinfo={setScrollYinfo} />
         </div>
     )
 }

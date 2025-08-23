@@ -19,6 +19,7 @@ import LoadingVerify from "../../components/LoadingVerify";
 import { getDetailsById } from "../../services";
 import { useWishList } from "../../context/WishlistContext";
 import Popover from '@mui/material/Popover';
+import { useSearchCriteries } from "../../context/SearchRestoreContext";
 
 function Detail() {
     const [modalShow, setModalShow] = useState(false);
@@ -33,7 +34,8 @@ function Detail() {
     const {setMayScroll}=useScrollY();
     const {wishBasket,removeFromWishes,addToWishes}=useWishList()
     const [open, setOpen] = useState(null);
-
+    const originMessage =location.state?.from;
+    const{setIsFromDetail}=useSearchCriteries() 
 
     useEffect(()=>{
         getDetailsById(id)
@@ -57,6 +59,8 @@ function Detail() {
         if(location.key!=='default'){
             navigate(-1);
             setMayScroll(true);
+            if(originMessage=='search') setIsFromDetail(true)
+            else setIsFromDetail(false)
         }
         else navigate('/')
     }
