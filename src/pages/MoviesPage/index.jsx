@@ -9,24 +9,27 @@ function MoviesPage() {
     const [pageLoading,setPageLoading]=useState(true);
     const [pageError,setPageError]=useState(false);
     const [data,setData]=useState([]);
-    const [only20,setOnly20]=useState([]);
+    const [show,setShow]=useState([]);
     const {handleScrollY}=useScrollY();
     const [searchParams, setSearchParams] = useSearchParams();
     const genreIdFromUrl = searchParams.get('genreId');
+    const viewChoice=searchParams.get('viewChoice');
     const filteredGenres=genres
                         .filter(item=>item.type.includes('movie'))
                         .sort((a, b) => a.name.localeCompare(b.name, 'en'))
     const [selectedValue,setSelectedValue]=useState( genreIdFromUrl ? +genreIdFromUrl : filteredGenres[0]?.num)
     const setViewData=(selVal,arr)=>{
-        if(arr.length) return arr.filter(item=>item.genres.find(genre=>genre.id===selVal)).slice(0,20)
+        if(arr.length) return arr.filter(item=>item.genres.find(genre=>genre.id===selVal))
     };
+    const [viewType,setViewType]=useState(viewChoice ? viewChoice : 'restricted');
+
 
     useEffect(()=>{
         getAllMovies()
         .then(res=>{
             if(res?.length>0){
                 setData(res);
-                setOnly20(setViewData(selectedValue,res))
+                setShow(setViewData(selectedValue,res))
                 setPageError(false);
             }else setPageError(true);
             setPageLoading(false);
@@ -40,7 +43,7 @@ function MoviesPage() {
     }, [data]);
 
     return (
-        <MoviesSeriesView {...{setSearchParams,setViewData,only20,setOnly20,pageError, pageLoading, type:'movie', selectedValue, setSelectedValue, data, filteredGenres }}/>
+        <MoviesSeriesView {...{viewType,setViewType,setSearchParams,setViewData,show,setShow,pageError, pageLoading, type:'movie', selectedValue, setSelectedValue, data, filteredGenres }}/>
     )
 }
 

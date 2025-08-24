@@ -7,12 +7,24 @@ import PageLoadError from "./PageLoadError";
 import { PulseLoader } from "react-spinners";
 import Auth from "../../pages/Auth";
 import LoadingVerify from "../LoadingVerify";
+import { Button } from "@mui/material";
 
-function MoviesSeriesView({setSearchParams,setViewData,only20,setOnly20,data,pageError,pageLoading,type,selectedValue,setSelectedValue,filteredGenres}) {
+function MoviesSeriesView({viewType,setViewType,setSearchParams,setViewData,show,setShow,data,pageError,pageLoading,type,selectedValue,setSelectedValue,filteredGenres}) {
     const isLessTnan320=useMatchMedia('(max-width: 320px)')
     const{isLoading,isLoggedIn}=useAuth()
     const {setScrollYinfo}=useScrollY();
 
+    const handleViewChoice=()=>{
+        const newView=viewType=='restricted'?'unrestricted':'restricted'
+        setSearchParams(prev => {
+            const allParams = Object.fromEntries(prev.entries());
+            return {
+                ...allParams,   
+                viewChoice:newView
+            };
+        });
+        setViewType(newView)
+    }
 
     return (
         isLoading?<LoadingVerify />:
@@ -28,7 +40,7 @@ function MoviesSeriesView({setSearchParams,setViewData,only20,setOnly20,data,pag
                 <div className="relative w-[200px] max-[320px]:w-[120px] ">
                     {
                         !isLessTnan320&&
-                        <div className="absolute top-[9px] max-[320px]:top-[4px] right-[11px] max-[320px]:right-[5px] flex items-center cursor-pointer">
+                        <div className="min-[600px]:max-[700px]:right-[3px] pointer-events-none absolute top-[9px] max-[320px]:top-[4px] right-[11px] max-[320px]:right-[5px] flex items-center cursor-pointer">
                             <div className="h-[18px] w-[1px] bg-[#f9f9f9]"></div>
                             <ArrowDropDownIcon fontSize="medium" sx={{color:'#808080'}} />
                         </div>
@@ -39,8 +51,15 @@ function MoviesSeriesView({setSearchParams,setViewData,only20,setOnly20,data,pag
                         (e)=>{
                             const newValue = +e.target.value; 
                             setSelectedValue(newValue);      
-                            setOnly20(setViewData(newValue,data));
-                            setSearchParams({ genreId: newValue });
+                            setShow(setViewData(newValue,data));
+                            setSearchParams(prev => {
+                                const allParams = Object.fromEntries(prev.entries());
+                                return {
+                                    ...allParams, 
+                                    genreId: newValue 
+                                };
+                            });
+                            // setSearchParams({ genreId: newValue});
                         }
                     } 
                     id="typeSelect" className="size-full truncate py-[10px] px-[20px] max-[320px]:px-[10px] max-[320px]:py-[5px] rounded-[50px] group cursor-pointer [text-align-last:center] text-[13px] font-[400] bg-[#31333c] hover:bg-[#31333C0D] border border-[#767676] text-white transition-all duration-[0.3s] appearance-none outline-none ">
@@ -52,8 +71,53 @@ function MoviesSeriesView({setSearchParams,setViewData,only20,setOnly20,data,pag
                         }
                     </select>
                 </div>
+                <div className="flex items-center rounded-[50px] cursor-pointer  border border-[#767676] transition-all duration-[0.3s]">
+                    <Button 
+                    onClick={handleViewChoice}
+                    sx={{
+                        '@media (max-width: 320px)': {
+                            paddingInline:'10px',  
+                            paddingBlock:'5px'
+                        },
+                        '@media (max-width: 1000px)': {
+                            fontSize:'11px',
+                        },
+                        paddingInline:'15px',
+                        paddingBlock:'10px',
+                        color:'white',
+                        fontSize:'13px',
+                        fontWeight:'400',
+                        borderBottomLeftRadius:'50px',
+                        borderTopLeftRadius:'50px',
+                        textWrap:'nowrap',
+                        backgroundColor:`${viewType==='restricted'?'#31333c':'#31333C0D'}`,
+                    }}
+                    variant="contained">View 20</Button>
+                    <div className="self-stretch w-[1px] bg-[#767676]"></div>
+                    <Button 
+                    onClick={handleViewChoice}
+                    sx={{
+                        '@media (max-width: 320px)': {
+                            paddingInline:'10px',  
+                            paddingBlock:'5px'
+                        },
+                        '@media (max-width: 1000px)': {
+                            fontSize:'11px',
+                        },
+                        paddingInline:'15px',
+                        paddingBlock:'10px',
+                        color:'white',
+                        fontSize:'13px',
+                        fontWeight:'400',
+                        borderBottomRightRadius:'50px',
+                        borderTopRightRadius:'50px',
+                        textWrap:'nowrap',
+                        backgroundColor:`${viewType==='unrestricted'?'#31333c':'#31333C0D'}`,
+                    }}
+                    variant="contained">View all</Button>
+                </div>
             </div>                
-            <BlogView blogData={only20} setScrollYinfo={setScrollYinfo} />
+            <BlogView blogData={viewType==='restricted'?show.slice(0,20):show} setScrollYinfo={setScrollYinfo} />
         </div>
     )
 }

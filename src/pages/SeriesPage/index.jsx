@@ -9,7 +9,7 @@ function SeriesPage() {
     const [pageLoading,setPageLoading]=useState(true);
     const [pageError,setPageError]=useState(false);
     const [data,setData]=useState([]);
-    const [only20,setOnly20]=useState([]);
+    const [show,setShow]=useState([]);
     const {handleScrollY}=useScrollY();
     const [searchParams, setSearchParams] = useSearchParams();
     const genreIdFromUrl = searchParams.get('genreId');
@@ -27,7 +27,7 @@ function SeriesPage() {
         .then(res=>{
             if(res?.length>0){
                 setData(res);
-                setOnly20(setViewData(selectedValue,res))
+                setShow(setViewData(selectedValue,res))
                 setPageError(false);
             }else setPageError(true);
             setPageLoading(false);
@@ -42,7 +42,7 @@ function SeriesPage() {
     }, [data]);
 
     return (
-        <MoviesSeriesView {...{setSearchParams,setViewData,only20,setOnly20,pageError, pageLoading, type:'series', selectedValue, setSelectedValue, data, filteredGenres }}/>
+        <MoviesSeriesView {...{setSearchParams,setViewData,show,setShow,pageError, pageLoading, type:'series', selectedValue, setSelectedValue, data, filteredGenres }}/>
     )
 }
 
