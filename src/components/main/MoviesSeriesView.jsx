@@ -8,7 +8,7 @@ import { PulseLoader } from "react-spinners";
 import Auth from "../../pages/Auth";
 import LoadingVerify from "../LoadingVerify";
 
-function MoviesSeriesView({setViewData,only20,setOnly20,data,pageError,pageLoading,type,selectedValue,setSelectedValue,filteredGenres}) {
+function MoviesSeriesView({setSearchParams,setViewData,only20,setOnly20,data,pageError,pageLoading,type,selectedValue,setSelectedValue,filteredGenres}) {
     const isLessTnan320=useMatchMedia('(max-width: 320px)')
     const{isLoading,isLoggedIn}=useAuth()
     const {setScrollYinfo}=useScrollY();
@@ -40,6 +40,7 @@ function MoviesSeriesView({setViewData,only20,setOnly20,data,pageError,pageLoadi
                             const newValue = +e.target.value; 
                             setSelectedValue(newValue);      
                             setOnly20(setViewData(newValue,data));
+                            setSearchParams({ genreId: newValue });
                         }
                     } 
                     id="typeSelect" className="size-full truncate py-[10px] px-[20px] max-[320px]:px-[10px] max-[320px]:py-[5px] rounded-[50px] group cursor-pointer [text-align-last:center] text-[13px] font-[400] bg-[#31333c] hover:bg-[#31333C0D] border border-[#767676] text-white transition-all duration-[0.3s] appearance-none outline-none ">
