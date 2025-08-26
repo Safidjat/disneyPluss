@@ -14,7 +14,7 @@ function BlogView({blogData,setScrollYinfo,search}) {
     }
     
     return (
-        <div className="flex flex-wrap w-full gap-[16px]">
+        <div id="blog" className="flex flex-wrap w-full gap-[16px]">
             {
                 blogData?.length&&
                 blogData.map(item=>(
@@ -26,9 +26,6 @@ function BlogView({blogData,setScrollYinfo,search}) {
                             className="size-full object-cover"
                             effect="blur"
                         />
-                        {/* <div className="absolute right-[5%] top-[6%]  w-[20%] aspect-square rounded-full bg-white">
-
-                        </div> */}
                         {/* <img className="size-full object-cover" src={imgUrl+item?.poster_path} alt={item?.original_name} /> */}
                     </Link>
                 ))

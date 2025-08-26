@@ -13,6 +13,8 @@ function SeriesPage() {
     const {handleScrollY}=useScrollY();
     const [searchParams, setSearchParams] = useSearchParams();
     const genreIdFromUrl = searchParams.get('genreId');
+    const pageNumFromUrl = searchParams.get('page');
+    const viewChoice=searchParams.get('viewChoice');
     const filteredGenres=genres
                         .filter(item=>item.type.includes('series'))
                         .sort((a, b) => a.name.localeCompare(b.name, 'en'))
@@ -20,6 +22,7 @@ function SeriesPage() {
     const setViewData=(selVal,arr)=>{
         if(arr.length) return arr.filter(item=>item.genres.find(genre=>genre.id===selVal)).slice(0,20)
     };
+    const [viewType,setViewType]=useState(viewChoice ? viewChoice : 'restricted');
 
 
     useEffect(()=>{
@@ -42,7 +45,7 @@ function SeriesPage() {
     }, [data]);
 
     return (
-        <MoviesSeriesView {...{setSearchParams,setViewData,show,setShow,pageError, pageLoading, type:'series', selectedValue, setSelectedValue, data, filteredGenres }}/>
+        <MoviesSeriesView {...{pageNumFromUrl,viewType,setViewType,setSearchParams,setViewData,show,setShow,pageError, pageLoading, type:'series', selectedValue, setSelectedValue, data, filteredGenres }}/>
     )
 }
 

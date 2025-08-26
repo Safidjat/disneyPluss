@@ -13,6 +13,7 @@ function MoviesPage() {
     const {handleScrollY}=useScrollY();
     const [searchParams, setSearchParams] = useSearchParams();
     const genreIdFromUrl = searchParams.get('genreId');
+    const pageNumFromUrl = searchParams.get('page');
     const viewChoice=searchParams.get('viewChoice');
     const filteredGenres=genres
                         .filter(item=>item.type.includes('movie'))
@@ -43,7 +44,7 @@ function MoviesPage() {
     }, [data]);
 
     return (
-        <MoviesSeriesView {...{viewType,setViewType,setSearchParams,setViewData,show,setShow,pageError, pageLoading, type:'movie', selectedValue, setSelectedValue, data, filteredGenres }}/>
+        <MoviesSeriesView {...{pageNumFromUrl,viewType,setViewType,setSearchParams,setViewData,show,setShow,pageError, pageLoading, type:'movie', selectedValue, setSelectedValue, data, filteredGenres }}/>
     )
 }
 
