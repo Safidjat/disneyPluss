@@ -1,4 +1,4 @@
-import * as yup from "yup" //Импортировать всё содержимое библиотеки yup и собрать его в один объект с именем yup
+import * as yup from "yup" 
 
 const passwordRules= /^(?=.*[a-z])(?=.*\d).{8,}$/
 

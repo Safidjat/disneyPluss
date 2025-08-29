@@ -5,8 +5,8 @@ import { useAuth } from "../../context/AuthContext";
 import LoadingVerify from "../../components/LoadingVerify";
 import { PulseLoader } from "react-spinners";
 import PageLoadError from "../../components/main/PageLoadError";
-import LandingView from "../../components/main/LandingView";
 import { useScrollY } from "../../context/ScrollRestoreContext";
+import LandingView from "../../components/main/Landing/LandingView";
 
 function Landing() {
   const [sliders,setSliders]=useState([]);

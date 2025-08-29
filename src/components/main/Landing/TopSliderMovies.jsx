@@ -4,14 +4,14 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation,Pagination,Autoplay,A11y } from 'swiper/modules';
 import { motion,AnimatePresence } from 'framer-motion';
-import { useMatchMedia } from '../../hooks/use-match-media';
 import { FaChevronCircleRight } from "react-icons/fa";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { useRef, useState } from 'react';
-import { topSliderData } from '../../services/componentsData';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { useScrollY } from '../../context/ScrollRestoreContext';
+import { useMatchMedia } from '../../../hooks/use-match-media';
+import { topSliderData } from '../../../services/componentsData';
+import { useAuth } from '../../../context/AuthContext';
+import { useScrollY } from '../../../context/ScrollRestoreContext';
 
 function TopSliderMovies() {
     const [currentImg,setCurrentImg]=useState(0);

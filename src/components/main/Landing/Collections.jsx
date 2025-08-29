@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { collections } from "../../services/componentsData";
+import { collections } from "../../../services/componentsData";
 import CollectionItem from "./CollectionItem";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../../context/AuthContext";
 
 
 function Collections() {

@@ -1,13 +1,13 @@
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
-import { loginSchema, registerSchema } from '../../schemas';
 import { Button } from '@mui/material';
-import { useAuth } from '../../context/AuthContext';
 import {  useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { getUseLogin, getUseRegister } from '../../services';
 import { useNavigate } from 'react-router-dom';
+import { loginSchema, registerSchema } from '../../../schemas';
+import { useAuth } from '../../../context/AuthContext';
+import { getUseLogin, getUseRegister } from '../../../services';
 
 
 function AuthView({signInFirst,setView}) {

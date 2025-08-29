@@ -1,7 +1,7 @@
-import { useLayoutEffect, useState } from "react"
-import AuthView from "../../components/main/AuthView"
+import { useState } from "react"
 import { useAuth } from "../../context/AuthContext"
 import LoadingVerify from "../../components/LoadingVerify"
+import AuthView from "../../components/main/Auth/AuthView"
 
 
 function Auth() {
@@ -10,7 +10,7 @@ function Auth() {
 
     return (
         isLoading?<LoadingVerify />:
-        <AuthView 
+        <AuthView
         key={signInFirst ? 'signIn' : 'register'} 
         signInFirst={signInFirst}
         setView={setView}

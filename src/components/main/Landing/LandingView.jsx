@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import TopSliderMovies from './TopSliderMovies';
 import Collections from './Collections';
+import { itemVariants, mainVariants } from '../../../services/componentsData';
+import TopSliderMovies from './TopSliderMovies';
 import SuggestionSlider from './SuggestionSlider';
-import { itemVariants, mainVariants } from '../../services/componentsData';
 
 function LandingView({sliders}) {
 

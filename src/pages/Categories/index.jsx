@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import {useParams } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
 import { useEffect, useLayoutEffect, useState } from "react";
 import LoadingVerify from "../../components/LoadingVerify";

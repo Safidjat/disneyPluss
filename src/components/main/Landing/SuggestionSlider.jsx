@@ -6,13 +6,12 @@ import { Navigation } from 'swiper/modules';
 import { useRef } from "react";
 import { FaChevronCircleRight } from "react-icons/fa";
 import { FaChevronCircleLeft } from "react-icons/fa";
-import { useMatchMedia } from '../../hooks/use-match-media';
-import { imgUrl } from '../../services/componentsData';
+import { imgUrl } from '../../../services/componentsData';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { useScrollY } from '../../context/ScrollRestoreContext';
+import { useAuth } from '../../../context/AuthContext';
+import { useScrollY } from '../../../context/ScrollRestoreContext';
 
 function SuggestionSlider({data}) {
     const prevRef = useRef(null);
