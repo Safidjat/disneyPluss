@@ -7,10 +7,6 @@ import LoadingVerify from "../../components/LoadingVerify"
 function Auth() {
     const [signInFirst,setView]=useState(true)
     const {isLoading}=useAuth()
-    
-    useLayoutEffect(() => {
-        scrollTo(0, false);
-    }, []); 
 
     return (
         isLoading?<LoadingVerify />:

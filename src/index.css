@@ -11,7 +11,7 @@
 .inputError{
     border-color: red !important;
 }
-html {
+html.smooth-scroll {
   scroll-behavior: smooth;
 }
 body{

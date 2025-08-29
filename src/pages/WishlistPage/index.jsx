@@ -5,7 +5,6 @@ import Auth from "../Auth";
 import LoadingVerify from "../../components/LoadingVerify";
 import { useWishList } from "../../context/WishlistContext";
 import { useScrollY } from "../../context/ScrollRestoreContext";
-import { scrollTo } from "../../utilities/scroll";
 import { Button } from "@mui/material";
 
 function WishlistPage() {
