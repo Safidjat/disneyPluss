@@ -13,13 +13,9 @@ function WishlistPage() {
     const {wishBasket,clearWishes}=useWishList();
     const {handleScrollY,setScrollYinfo}=useScrollY();
 
-    useLayoutEffect(() => {
-        scrollTo(0, false);
-    }, []); 
-
-    useEffect(() => {
+    useLayoutEffect(()=>{
         if (wishBasket.basket.length > 0) {
-            handleScrollY(); 
+            handleScrollY();
         }
     }, [wishBasket]);
 
