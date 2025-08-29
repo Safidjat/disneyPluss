@@ -212,8 +212,6 @@ function Detail() {
                     </div>
                     <IconButton
                     onClick={handleBasket}
-                    component={Link}
-                    to=""
                     sx={{
                         width: '37px',
                         height: '37px',

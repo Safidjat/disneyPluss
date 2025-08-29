@@ -55,7 +55,7 @@ function SearchPage() {
             //     result.push(allData.find(item=>item.id==iD))
             // })
             
-            // return result            
+            // return result                        
             return storage.frozenRandomView
         }
         else if(search.trim()=='') return random20
