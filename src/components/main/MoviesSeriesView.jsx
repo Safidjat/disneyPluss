@@ -14,6 +14,7 @@ import { scrollToId } from "../../utilities/scroll";
 function MoviesSeriesView({pageNumFromUrl,viewType,setViewType,setSearchParams,setViewData,show,setShow,data,pageError,pageLoading,type,selectedValue,setSelectedValue,filteredGenres}) {
     const isLessTnan320=useMatchMedia('(max-width: 320px)')
     const isLessTnan490=useMatchMedia('(max-width: 490px)')
+    const isBetween600And920 =useMatchMedia('((min-width: 600px) and (max-width: 920px))')
     const{isLoading,isLoggedIn}=useAuth()
     const {setScrollYinfo}=useScrollY();
     const pageSize=20;
@@ -58,7 +59,7 @@ function MoviesSeriesView({pageNumFromUrl,viewType,setViewType,setSearchParams,s
                 <h1 className="text-[18px] min-[800px]:text-[25px] font-bold text-white">Select your favorite {type} category:</h1>
                 <div className="relative w-[200px] max-[320px]:w-[120px] ">
                     {
-                        !isLessTnan320&&
+                        !isLessTnan320 && !isBetween600And920 &&
                         <div className="min-[600px]:max-[700px]:right-[3px] pointer-events-none absolute top-[9px] max-[320px]:top-[4px] right-[11px] max-[320px]:right-[5px] flex items-center cursor-pointer">
                             <div className="h-[18px] w-[1px] bg-[#f9f9f9]"></div>
                             <ArrowDropDownIcon fontSize="medium" sx={{color:'#808080'}} />
