@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import BlogView from "../../components/main/BlogView"
 import { useAuth } from "../../context/AuthContext";
 import Auth from "../Auth";
@@ -25,7 +25,7 @@ function WishlistPage() {
             <div className="w-full flex items-center justify-between">
                 <h1 className="text-[18px] min-[800px]:text-[25px] font-bold text-white">My List</h1>
                 {
-                    wishBasket.basket.length&&
+                    wishBasket.basket.length>0&&
                     <Button
                     onClick={clearWishes}
                     variant="outlined" 
@@ -57,7 +57,7 @@ function WishlistPage() {
             </div>
             <div className="min-h-[567.6px]">
                 {
-                    wishBasket.basket.length
+                    wishBasket.basket.length>0
                     ?
                     <BlogView blogData={wishBasket.basket} setScrollYinfo={setScrollYinfo}/>
                     :

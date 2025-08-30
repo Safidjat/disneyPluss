@@ -81,7 +81,7 @@ function Detail() {
             <PulseLoader color={"#fff"} size={10} className="customLoader"/>
         </div>:
         pageError?<PageLoadError />:
-        <div className="relative h-[665.600px]  grid place-items-center w-full">
+        <div className="relative h-[665.600px] grid place-items-center w-full">
             <div className="absolute inset-0 opacity-[0.5] z-[-1]">
                 <LazyLoadImage
                     width="100%"
