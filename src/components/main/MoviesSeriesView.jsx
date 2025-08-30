@@ -26,7 +26,7 @@ function MoviesSeriesView({pageNumFromUrl,viewType,setViewType,setSearchParams,s
             isFirstRender.current = false;
         } else {
             const blogElement = document.getElementById('blog');
-            if (blogElement) {
+            if (blogElement&&viewType!='restricted') {
                 scrollToId(blogElement);
             }
         }
