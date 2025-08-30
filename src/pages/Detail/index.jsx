@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Button, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
@@ -34,6 +34,7 @@ function Detail() {
     const {setMayScroll}=useScrollY();
     const {wishBasket,removeFromWishes,addToWishes}=useWishList()
     const [open, setOpen] = useState(null);
+    const [play, setPlay] = useState(null);
     const originMessage =location.state?.from;
     const{setIsFromDetail}=useSearchCriteries() 
 
@@ -50,7 +51,7 @@ function Detail() {
     },[id])
 
     const handlePopoverOpen = (event) => {
-        if(!trailers?.length) setOpen(event.currentTarget);
+        if(!trailers?.length) setOpen(event.currentTarget);        
     };
     const handlePopoverClose = () => {
         setOpen(null);
@@ -105,44 +106,74 @@ function Detail() {
                     <h1 className="text-[35px] max-[400px]:text-[20px] text-left text-white font-bold w-full">{detail?.title}</h1>
                 }
                 <div className="flex items-center gap-[clamp(5px,2vw,10px)] text-[12px] min-[800px]:text-[14px] min-[1000px]:text-[16px]">
-                    <Button 
-                    startIcon={<PlayArrowRoundedIcon fontSize="small"/>}
-                    sx={{
-                        width:'clamp(60px, 18vw, 100px)',
-                        height:'clamp(22px, 37px, 37px)',
-                        borderRadius:'4px',
-                        textTransform:'uppercase',
-                        backgroundColor: '#f9f6ee',
-                        color:'black',
-                        transitionDuration:'0.3s',
-                        '&:hover': {
-                            backgroundColor: '#0009',
-                            color:'#f9f6ee',
-                        },
-                        fontSize: '12px',
-                        '@media (min-width: 800px)': {
-                            fontSize: '14px', 
-                        },
-                        '@media (min-width: 1000px)': {
-                            fontSize: '16px', 
-                        },
-                        '@media (max-width: 400px)': {
-                            '& .MuiButton-startIcon': {
-                                marginRight: '2px', 
-                            } 
-                        },
-                        '@media (max-width: 300px)': {
-                            width:'100px',
-                        },
-                        '@media (max-width: 290px)': {
-                            fontSize: '10px',
-                            width:'70px',
-                        }, 
-                    }}
+                    <div>
+                        <Button 
+                        onMouseEnter={(e)=>setPlay(e.currentTarget)}
+                        onMouseLeave={()=>setPlay(null)}
+                        startIcon={<PlayArrowRoundedIcon fontSize="small"/>}
+                        sx={{
+                            width:'clamp(60px, 18vw, 100px)',
+                            height:'clamp(22px, 37px, 37px)',
+                            borderRadius:'4px',
+                            textTransform:'uppercase',
+                            backgroundColor: '#f9f6ee',
+                            color:'black',
+                            transitionDuration:'0.3s',
+                            '&:hover': {
+                                backgroundColor: '#0009',
+                                color:'#f9f6ee',
+                            },
+                            fontSize: '12px',
+                            '@media (min-width: 800px)': {
+                                fontSize: '14px', 
+                            },
+                            '@media (min-width: 1000px)': {
+                                fontSize: '16px', 
+                            },
+                            '@media (max-width: 400px)': {
+                                '& .MuiButton-startIcon': {
+                                    marginRight: '2px', 
+                                } 
+                            },
+                            '@media (max-width: 300px)': {
+                                width:'100px',
+                            },
+                            '@media (max-width: 290px)': {
+                                fontSize: '10px',
+                                width:'70px',
+                            }, 
+                        }}
 
-                    variant="contained">
-                        Play
-                    </Button>
+                        variant="contained">
+                            Play
+                        </Button>
+                        <Popover
+                            id="mouse-over-popover2"
+                            sx={{ pointerEvents: 'none' }}
+                            open={play}
+                            anchorEl={play}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                            onClose={()=>setPlay(null)}
+                            disableRestoreFocus
+                            slotProps={{
+                                paper: {
+                                    sx: {
+                                        padding: '10px',
+                                        marginTop:'5px'
+                                    }
+                                }
+                            }}
+                        >
+                            <h3 className="text-center min-w-[60px]">No watching without any payment🥲</h3>
+                        </Popover>
+                    </div>
                     <div>
                         <Button 
                         onClick={handleTrailerShow}

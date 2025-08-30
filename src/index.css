@@ -5,6 +5,7 @@
   --color-bgDark: #030408;
   --shadow-formShadow: rgba(0,0,0,0.7) 0px 25px 30px -10px;
 }
+
 *{
   font-family: 'Roboto';
 }
@@ -31,7 +32,6 @@ body.content-loaded::after {
   background-color: #030408; 
   z-index: -1;
 }
-
 .customLoader span {
   margin: 0 10px !important; 
 }
