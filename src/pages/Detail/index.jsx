@@ -264,7 +264,16 @@ function Detail() {
                         }
                     </IconButton>
                 </div>
-                <h2 className="text-white text-[14px] font-[400] min-[800px]:text-[16px] min-[1000px]:text-[18px]">{detail?.release_date?.slice(0,4) || detail?.first_air_date?.slice(0,4)} • {detail?.genres?.map(item=>item.name).join(', ')}</h2>
+                <h2 className="text-white text-[14px] font-[400] min-[800px]:text-[16px] min-[1000px]:text-[18px]">
+                    {
+                        (()=>{
+                            const date=detail?.release_date?.slice(0,4) || detail?.first_air_date?.slice(0,4);
+                            const itsSeasons=detail?.seasons ? ` • ${detail?.seasons.at(-1)?.season_number} Seasons`:'';
+                            const itsGenres=` • ${detail?.genres?.map(item=>item.name).join(', ')}`;
+                            return `${date+itsSeasons+itsGenres}`
+                        })()
+                    }
+                </h2>
                 <p className="min-[1000px]:mr-[200px] text-white text-[14px] font-[400] min-[800px]:text-[16px] min-[1000px]:text-[18px]">{detail?.overview}</p>
                 <IconButton
                 onClick={handleBack} 
