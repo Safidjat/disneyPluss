@@ -20,17 +20,20 @@ function MoviesSeriesView({pageNumFromUrl,viewType,setViewType,setSearchParams,s
     const pageSize=20;
     const [currentPage,setCurrentPage]=useState(pageNumFromUrl ? +pageNumFromUrl : 1)
     const isFirstRender = useRef(true);
+    const prevSelectedValue = useRef(selectedValue);
 
     useEffect(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false;
         } else {
             const blogElement = document.getElementById('blog');
-            if (blogElement&&viewType!='restricted') {
+            const selectedValueDidNotChange=prevSelectedValue.current===selectedValue;
+            if (viewType!='restricted'&&selectedValueDidNotChange) {
                 scrollToId(blogElement);
             }
         }
-    }, [currentPage]); 
+        prevSelectedValue.current = selectedValue;
+    }, [currentPage,selectedValue]); 
 
     const handleViewChoice=()=>{
         const newView=viewType=='restricted'?'unrestricted':'restricted'
