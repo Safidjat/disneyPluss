@@ -13,7 +13,7 @@ function WishlistPage() {
     const {handleScrollY,setScrollYinfo}=useScrollY();
 
     useLayoutEffect(()=>{
-        if (wishBasket.basket.length > 0) {
+        if (wishBasket.basket.length) {
             handleScrollY();
         }
     }, [wishBasket]);

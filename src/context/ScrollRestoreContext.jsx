@@ -6,7 +6,7 @@ const ScrollRestore=createContext(null)
 function ScrollRestoreContext({children}) {
     const [mayScroll,setMayScroll]=useState(null);
     const [scrollYinfo,setScrollYinfo]=useState(null);
-    
+
     function handleScrollY(){
         if(mayScroll){
             scrollTo(scrollYinfo)
