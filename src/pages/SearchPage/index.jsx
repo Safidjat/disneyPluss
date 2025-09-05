@@ -49,13 +49,7 @@ function SearchPage() {
             else if(item?.title) return item?.title?.toLowerCase().includes(search.trim().toLowerCase())
             else return item?.name?.toLowerCase().includes(search.trim().toLowerCase())
         })
-        if(isFromDetail) {
-            // const result=[];
-            // storage.frozenRandomView.forEach(iD=>{
-            //     result.push(allData.find(item=>item.id==iD))
-            // })
-            
-            // return result                        
+        if(isFromDetail) {                     
             return storage.frozenRandomView
         }
         else if(search.trim()=='') return random20

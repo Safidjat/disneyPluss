@@ -20,9 +20,9 @@ function Categories() {
     useEffect(()=>{
         getMainCategories(id)
         .then(res=>{
-            if(Object.keys(res).length){
-            setCategoryData(res);
-            setPageError(false);
+            if(res && Object.keys(res)?.length){
+                setCategoryData(res);
+                setPageError(false);
             }else setPageError(true);
             setPageLoading(false);
         })

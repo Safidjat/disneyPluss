@@ -41,7 +41,7 @@ function Detail() {
     useEffect(()=>{
         getDetailsById(id)
         .then((res)=>{
-            if(Object.keys(res).length){
+            if(res && Object.keys(res)?.length){
                 setDetail(res);
                 setTrailers(res?.videos?.results?.filter(item=>item?.type=='Trailer'||item?.type=='Teaser'));
                 setPageError(false);
